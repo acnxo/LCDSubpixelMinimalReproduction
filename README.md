@@ -1,79 +1,165 @@
-# 最小复现：GraalVM native-image 下 JavaFX LCD 次像素文本合成退化
+# JavaFX LCD 次像素文本合成退化 —— 最小复现（GraalVM native-image）
 
-> 本分支**只包含复现该问题所需的最小代码与文档**，不含任何应用代码。是一个标准 Maven 工程。
+本仓库是下述渲染问题的**最小可复现工程**：同一份 JavaFX 代码在 HotSpot 上 LCD 次像素文本合成正常，
+经 GraalVM `native-image` 编译后，三个颜色通道的覆盖被压缩为同一个标量，并呈二值化。
 
-<img width="1094" height="465" alt="image" src="https://github.com/user-attachments/assets/2a353f17-4f01-4c7d-aceb-e6157e78b47c" />
+仓库只包含复现所需的源码、配置与文档，不含任何应用代码。
 
+![native-image 与 HotSpot 的窗口对比](https://github.com/user-attachments/assets/2a353f17-4f01-4c7d-aceb-e6157e78b47c)
 
+## 1. 问题描述
 
-## 一句话（问题所在）
+### 1.1 观测数据
 
-**同一份 JavaFX 代码，`native-image` 把 LCD 次像素合成里的「三条独立覆盖」编译成了
-「一条共用、跨相邻像素取样并饱和」的标量** ⇒ 三通道输出相同、灰阶被二值化；
-HotSpot 上同一段代码是正确的。
+在同一台 Windows 11 x64 机器（Intel UHD，显示缩放 1.5×）上分别以两种方式运行同一份程序，
+输出「黑字白底、14px」样例的三通道覆盖量：
 
-即：应为 `out_c = mix(bg_c, fg_c, m_c)`（每个通道各用自己的覆盖 `m_c`），
-实为 `out_c = mix(bg, fg, s)`（三通道共用同一个 `s`）。
+| 运行方式 | `per-channel ink` | 结论 |
+| --- | --- | --- |
+| HotSpot（`java -jar`） | `73135 / 73618 / 73245`，`collapsed=false` | 三通道互不相等，合成正确 |
+| `native-image` | `105825 / 105825 / 105825`，`collapsed=true` | 三通道完全相同，问题复现 |
 
-## 工程结构（就这些）
+两点补充：
 
-| 路径 | 作用 |
+* HotSpot 侧的数值受运行环境影响，不同机器间约有 ±0.06% 的差异；
+* `native-image` 侧的输出在不同环境下**逐位相同** —— 二值化抹平了差异。
+
+### 1.2 行为模型
+
+* 期望：`out_c = mix(bg_c, fg_c, m_c)`，即每个颜色通道各自使用自己的覆盖 `m_c`；
+* 实际：`out_c = mix(bg, fg, s)`，即三通道共用同一个标量 `s`，且 `s` 呈二值化。
+
+该模型由上述观测数据推得；推导过程与被排除项见第 7 节及来源 issue。
+
+## 2. 运行环境
+
+| 项 | 要求 |
 | --- | --- |
-| `pom.xml` | 最小 Maven 工程：只依赖 JavaFX 的 base / graphics / controls |
-| `src/main/java/LcdSubpixelRepro.java` | 复现程序（有效代码 44 行）：`Text` 设 `FontSmoothingType.LCD` → snapshot → 统计三通道墨量 |
-| `src/main/resources/META-INF/native-image/*.json` | native-image 所需的反射 / JNI / 资源元数据（JavaFX 用，与本复现目标无关） |
-| `src/main/resources/META-INF/native-image/native-image.properties` | native-image 的构建参数（`--no-fallback` + JavaFX 运行期初始化） |
-| `Dist\RunJVMJar.cmd` / `Dist\RunNativeImage.cmd` | **双击即看窗口：`RunJVMJar.cmd`（JVM 侧）与 `RunNativeImage.cmd`（原生侧）各开一个窗口，并排比较 |
-| `.github/workflows/LcdSubpixelReproMatrix.yml` | 版本矩阵 + 打包发布 |
+| 操作系统 | Windows x64 |
+| 观感观察 | 需真实 GPU 且 ClearType 生效；CI 机器无 GPU（D3D 走 WARP），不适合做观感判断 |
+| JDK / GraalVM | GraalVM for JDK 17 / 20 / 21 / 22 / 23 / 24 / 25（版本矩阵覆盖） |
+| JavaFX | 与 JDK 对应的版本；另有 JDK 25 + JavaFX 27 一格 |
+| 构建工具 | Maven |
 
-## 判据（只看一个数）
+## 3. 快速开始
 
-黑字白底时，正确合成必然 `out_c = 1 − m_c` ⇒ **R/G/B 三通道墨量不可能相等**。
+### 3.1 使用发布包（推荐）
 
-| 运行方式 | 输出 |
-| --- | --- |
-| HotSpot | `per-channel ink = 73135 / 73618 / 73245   collapsed=false` → `OK` |
-| `native-image` | `per-channel ink = 105825 / 105825 / 105825   collapsed=true` → `*** BUG ***` |
+```bat
+Dist\Update.cmd            :: 列出最新发布里的全部包，按提示输入编号
+Dist\Update.cmd jdk23      :: 按关键字挑选（也可用 25.0.4 等）
+Dist\Update.cmd stable     :: 只取正式版
+```
 
-## 本地怎么跑
+下载并解压后，在同一目录下双击两个入口脚本即可对比：
 
-```powershell
-# 1) 构建（可指定 JDK/JavaFX 版本做矩阵）
+```bat
+Dist\RunNativeImage.cmd    :: 原生镜像（lcd-repro.exe）
+Dist\RunJVMJar.cmd         :: JVM 版（lcd-repro.jar）
+```
+
+两个脚本都只运行**自身所在目录**中的程序（用 `%~dp0` 定位），不会误用 `PATH` 中的同名程序；
+程序缺失时会给出明确提示。
+
+### 3.2 从源码构建
+
+```bat
 mvn -B -ntp package -Dmaven.compiler.release=25 -Djavafx.version=25.0.4
 mvn -B -ntp dependency:copy-dependencies -DoutputDirectory=target/lib
 
-# 2) JVM 侧（应打印 OK）
-java -jar target/lcd-repro-fat.jar
+:: JVM 侧（应打印 collapsed=false / OK）
+java -cp "target/classes;target/lib/*" LcdSubpixelRepro
 
-# 3) 原生镜像侧（应打印 BUG = 复现）
+:: 原生镜像侧（应打印 collapsed=true，即复现）
 native-image -cp "target/classes;target/lib/*" -o target/lcd-repro LcdSubpixelRepro
-./target/lcd-repro.exe
+target\lcd-repro.exe
 ```
 
-**不要**加 `-Dprism.lcdtext=false` —— 那是绕开本问题的灰度路径。
+CI 中另外把 `classes` 与依赖合并为自包含的 `lcd-repro.jar`（见工作流 `BuildFatJar` 步骤），
+发布包内的 JVM 版即为该 fat jar。
 
-**默认就带界面**：双击 `Dist\RunNativeImage.cmd`（原生）与 `Dist\RunJVMJar.cmd`（JVM），把两个窗口并排放好即可肉眼对比；
-两边的判据数字也会同时打印在同一窗口的控制台里。
+## 4. 判据
 
-只想要数字（脚本 / CI）：加 `--headless`，例如 `lcd-repro.exe --headless`。
+黑字白底时，正确的 LCD 次像素合成必然满足 `out_c = 1 − m_c`，因此 **R/G/B 三通道的覆盖量不可能相等**。
 
-## 版本矩阵与发布物
+| 运行方式 | 预期输出 |
+| --- | --- |
+| HotSpot | `per-channel ink = <三值不等>   collapsed=false` → `OK` |
+| `native-image` | `per-channel ink = <三值相同>   collapsed=true` → `*** BUG ***` |
 
-CI 会对 `GraalVM for JDK ∈ {17,20,21,22,23,24,25} × 对应 JavaFX`（外加 **JDK 25 + JavaFX 27**）
-各构建一次，跑两个判据，并把**每格的编译产物**（原生镜像 exe + JVM 运行集 + `RESULT.txt`）
-打包挂到**发布页（预发行）**，可直接下载到本机验证：
+* 默认**带界面**：两个入口脚本各开一个窗口，便于并排目视对比，同时判据数字打印到控制台；
+* 仅需数字（脚本化 / CI）时加 `--headless`，例如 `lcd-repro.exe --headless`；
+* 注意：`-Dprism.lcdtext=false` 是绕开该问题的灰度渲染路径，不属于本复现的观察对象。
 
-> 资产命名：`lcd-subpixel-repro-jdk<JDK主版本>-openjfx<OpenJFX版本>-<UTC时间戳>.zip`
-> （例：`lcd-subpixel-repro-jdk23-openjfx23.0.2-202610111350.zip`）。
->
-> 每包内容（无 lib/ 目录，JVM 侧为自包含 fat jar）：`lcd-repro.exe`（原生镜像）、`lcd-repro.jar`（同一程序的 JVM 版，供对照）、
-> `Dist\RunJVMJar.cmd`、`Dist\RunNativeImage.cmd`、`RESULT.txt`（脚本随包发布，落在 `Dist` 目录）
+## 5. 版本矩阵与发布物
 
-> 注意：GitHub Windows runner 无 GPU，D3D 走 WARP（软件实现，仍是真 D3D 后端）；
-> 因此 CI 的数字用于"是否复现"的判断，**观感/像素级结论仍以真实机器为准**。
+CI 对下列 8 个组合各构建一次，并分别执行上述两个判据：
 
-## 已排除（详见主仓库 issue #20 的复盘）
+| # | GraalVM for JDK | JavaFX | # | GraalVM for JDK | JavaFX |
+| --- | --- | --- | --- | --- | --- |
+| 1 | 17 | 17.0.20 | 5 | 23 | 23.0.2 |
+| 2 | 20 | 20.0.2 | 6 | 24 | 24.0.2 |
+| 3 | 21 | 21.0.12 | 7 | 25 | 25.0.4 |
+| 4 | 22 | 22.0.2 | 8 | 25 | 27 |
 
-DWrite 字形掩码两构建**逐字节相同**；纹理上传是同一 `prism_d3d.dll` 的原生调用；
-着色器 `.obj` 与 `*_Loader` 常量表相同；`MaskData`/`GlyphCache` 几何无 LCD 特判；
-`PrismSettings` 44 字段与类初始化策略两构建全同；环境（同机两进程）与优化等级（`-Ob`）均已排除。
+工作流（`.github/workflows/LcdSubpixelReproMatrix.yml`）：
+
+* **触发方式**：PR 合并到 `dev` 或 `main` 后自动运行；也可在 Actions 页面手动触发
+  （手动触发可填写 PR 编号用于命名，见下）；
+* **产物**：每格的编译产物打包后发布到 Releases（预发行）：
+
+| 项 | 规则 |
+| --- | --- |
+| 发布名（同时作为 tag） | `V<Maven 版本>.<修订号>-LCDSubpixelRepro` |
+| 修订号 | 触发构建的 PR 编号，5 位左补 0（PR #1 → `00001`）；手动触发未填编号时为时间戳 `yyyy.MMdd.HHmm` |
+| 资产名 | `lcd-subpixel-repro-V<Maven 版本>.<修订号>-jdk<JDK 主版本>-openjfx<OpenJFX 版本>.zip` |
+
+每个包内含（扁平结构；解压后即位于 `Dist` 目录）：
+
+```
+lcd-repro.exe           原生镜像
+lcd-repro.jar           JVM 版（自包含 fat jar）
+RunNativeImage.cmd      双击运行原生镜像
+RunJVMJar.cmd           双击运行 JVM 版
+RESULT.txt              构建机上的原始判据数字
+```
+
+CI 构建机没有 GPU，D3D 走 WARP（软件实现，仍为真实 D3D 后端）。因此 CI 的数字足以判断
+**问题是否复现**，但观感与像素级结论仍应以真实机器为准。
+
+## 6. 仓库结构
+
+| 路径 | 说明 |
+| --- | --- |
+| `pom.xml` | 最小 Maven 工程，仅依赖 JavaFX base / graphics / controls |
+| `src/main/java/LcdSubpixelRepro.java` | 复现程序（有效代码 44 行）：`Text` 设 `FontSmoothingType.LCD` → `snapshot` → 统计三通道覆盖量 |
+| `src/main/resources/META-INF/native-image/` | native-image 所需的反射 / JNI / 资源元数据与构建参数（供 JavaFX 使用，与本复现目标无关） |
+| `Dist/` | 构建包下载脚本（`Update.cmd` + `Update.ps1`）与两个双击入口脚本 |
+| `.github/workflows/LcdSubpixelReproMatrix.yml` | 版本矩阵构建与发布 |
+| `.github/dependabot.yml` | 依赖自动升级（Maven 与 GitHub Actions，每月一次） |
+| `LICENSE` | GNU GPL v3 |
+
+## 7. 已排除的可能原因
+
+以下因素均已核实为**两构建相同**，故不构成本问题的成因（完整推导与逐条复核方式见来源 issue 的复盘）：
+
+* DirectWrite 字形掩码：两构建逐字节相同；
+* 纹理上传：同一 `prism_d3d.dll` 的原生调用；
+* 着色器 `.obj` 与 `*_Loader` 常量表；
+* `MaskData` / `GlyphCache` 的几何与行距；
+* `PrismSettings` 全部 44 个字段与类初始化策略（审计结果全为运行期初始化）；
+* 运行环境（同一机器上两个进程）与编译优化等级（`-Ob`）。
+
+## 8. 依赖维护
+
+Dependabot 每月检查一次，覆盖 Maven 依赖与工作流中的 GitHub Actions，
+其 PR 直接提交到 `dev` 分支（配置见 `.github/dependabot.yml`）。
+也可在仓库的 Dependabot 页面使用「Check for updates」随时手动触发检查。
+
+## 9. 许可
+
+本项目以 **GNU General Public License v3.0** 授权，完整文本见 [`LICENSE`](LICENSE)。
+
+## 10. 相关链接
+
+* 问题来源与完整复盘：<https://github.com/cnxnc/LegionFanControl/issues/20>
