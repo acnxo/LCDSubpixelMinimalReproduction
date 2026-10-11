@@ -1,0 +1,51 @@
+# Dependabot 配置：每月检查并升级 Maven 依赖
+#
+# 覆盖范围：
+#   Maven 依赖 —— pom.xml。本项目的版本集中在 <properties> 的 javafx.version，
+#                 三个依赖 org.openjfx:javafx-{base,graphics,controls} 共用它，
+#                 所以一次升级即覆盖全部 JavaFX 依赖。
+#
+# 合入路径：Dependabot 的 PR 直接指向 dev（配置里的 target-branch）。
+#
+#   dependabot/maven/xxx ──PR──▶ dev
+#
+# 检测频率：每月一次（每月同一天 09:00 / Asia/Shanghai）。
+# 手动更新：Dependabot 页面（Insights → Dependency graph → Dependabot）右侧有
+#           「Check for updates」按钮，可随时要求它立刻重新检查一次；
+#           GitHub 也提供对应的 API 触发入口（合并本 PR 后可在需用时实测确认）。
+#
+# 前置条件（缺任一条本文件都不生效）：
+#   - 本文件必须位于**默认分支**（Dependabot 只从默认分支读取配置）。
+#     本仓库的默认分支就是 dev，因此本文件合并进 dev 后即生效；
+#   - 指定 target-branch 后，Dependabot 读取的是**该分支**上的清单文件，
+#     所以 dev 上的 pom.xml 必须存在（当前满足）。
+version: 2
+
+updates:
+  # ── Maven 依赖（pom.xml）──
+  - package-ecosystem: maven
+    directory: /
+    target-branch: dev
+    schedule:
+      interval: monthly
+      time: "09:00"
+      timezone: Asia/Shanghai
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: chore
+    labels:
+      - dependencies
+    groups:
+      # JavaFX 各模块必须同版本（javafx-base / graphics / controls），
+      # 因此不做 minor/major 区分：只要是 org.openjfx 的更新，一律并入**同一个 PR**，
+      # 避免出现"只升了半个 JavaFX"导致构建失败的中间状态。
+      javafx:
+        patterns:
+          - "org.openjfx:*"
+      # 其余依赖：minor + patch 合并为一个 PR 减少噪音；major 单独提 PR 便于先读上游变更说明。
+      maven-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
