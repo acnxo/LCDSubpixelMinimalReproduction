@@ -10,7 +10,13 @@ on:
     types: [closed]
     branches: [dev, main]
   # 保留手动触发：首次出包、或需要重跑某一版时用（支持任意分支）
+  # pr 输入：手动触发时用于命名的 PR 编号；留空则退回时间戳。
   workflow_dispatch:
+    inputs:
+      pr:
+        description: '用于命名的 PR 编号（留空 = 用时间戳）'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -92,6 +98,31 @@ jobs:
         shell: pwsh
         run: |
           & ./target/lcd-repro.exe --headless | Tee-Object -FilePath target/native.txt
+      # 修订号（用于产物命名）：优先 PR 编号（5 位左补 0）；手动触发可传 inputs.pr；
+      # 都没有则退回时间戳 yyyy.MMdd.HHmm。
+      # 与 publish 作业里的同名逻辑一致 —— 作业之间不共享 step 输出，只能各算一次。
+      - name: ComposeRev
+        shell: bash
+        run: |
+          set -euo pipefail
+          ver=$(sed -n 's:.*<version>\(.*\)</version>.*:\1:p' pom.xml | head -1 | tr -d '[:space:]')
+          printf '%s' "$ver" | grep -Eq '^[0-9]+(\.[0-9]+)+([-+.][0-9A-Za-z.+_-]*)?$' \
+            || { echo "::error::版本号形状异常：[$ver]"; exit 1; }
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            pr='${{ github.event.pull_request.number }}'
+          else
+            pr='${{ inputs.pr }}'
+          fi
+          if printf '%s' "$pr" | grep -Eq '^[0-9]+$'; then
+            rev=$(printf '%05d' "$pr")
+          else
+            rev="$(date -u +%Y).$(date -u +%m%d).$(date -u +%H%M)"
+            echo "::warning::未取得 PR 编号，退回时间戳修订号：$rev"
+          fi
+          echo "VER=$ver" >> "$GITHUB_ENV"
+          echo "REV=$rev" >> "$GITHUB_ENV"
+          echo "版本=$ver"
+          echo "修订号=$rev"
       - name: PackageForLocalVerify
         shell: pwsh
         run: |
@@ -114,8 +145,9 @@ jobs:
             "比较两者的 per-channel ink —— 若一处三通道相同、另一处不相同，即复现。"
           ) | Out-File -FilePath "$d/RESULT.txt" -Encoding utf8
           New-Item -ItemType Directory -Force -Path dist | Out-Null
-          Compress-Archive -Path "$d/*" -DestinationPath "dist/lcd-subpixel-repro-$tag-$stamp.zip" -Force
-          Write-Host "打包完成：dist/lcd-subpixel-repro-$tag-$stamp.zip"
+          $asset = "lcd-subpixel-repro-V$env:VER.$env:REV-$tag.zip"
+          Compress-Archive -Path "$d/*" -DestinationPath "dist/$asset" -Force
+          Write-Host "打包完成：dist/$asset"
       - name: UploadArtifact
         uses: actions/upload-artifact@v4
         with:
@@ -144,11 +176,11 @@ jobs:
         run: ls -l assets
       # 发布页 tag / 标题用 UTC 时间戳（yyyyMMddHHmm），与本仓库既有 tag 惯例一致；
       # 同一分钟内重复运行会更新同一个发布页（可接受：资产名也带同一时间戳）。
-      # 发布名格式：V<Maven 版本>.<yyyy>.<MMdd>.<HHmm>-LCDSubpixelRepro
+      # 发布名格式：V<Maven 版本>.<修订号>-LCDSubpixelRepro（修订号 = PR 编号，5 位左补 0）
       # 例：V1.0.0.2026.1011.0708-LCDSubpixelRepro
       # 版本号取自 pom.xml 的 project.version（maven 求值，失败则回退解析 pom）。
       # 资产名仍用紧凑时间戳（yyyyMMddHHmm），与发布名各自独立。
-      # 发布名格式：V<Maven 版本>.<yyyy>.<MMdd>.<HHmm>-LCDSubpixelRepro
+      # 发布名格式：V<Maven 版本>.<修订号>-LCDSubpixelRepro（修订号 = PR 编号，5 位左补 0）
       # 例：V1.0.0.2026.1011.0708-LCDSubpixelRepro
       # 版本号：以 pom.xml 的 project.version 为准；再用 maven 求值交叉校验（不一致只告警）。
       # 形状校验：必须是 x.y(.z...) 形态，拒绝 maven 的 Stub 占位值 "1"。
@@ -166,12 +198,23 @@ jobs:
           ver="$pomver"
           printf '%s' "$ver" | grep -Eq '^[0-9]+(\.[0-9]+)+([-+.][0-9A-Za-z.+_-]*)?$' \
             || { echo "::error::版本号形状异常：[$ver]（refusing to publish a wrong name）"; exit 1; }
-          y=$(date -u +%Y); md=$(date -u +%m%d); hm=$(date -u +%H%M)
-          rel="V${ver}.${y}.${md}.${hm}-LCDSubpixelRepro"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            pr='${{ github.event.pull_request.number }}'
+          else
+            pr='${{ inputs.pr }}'
+          fi
+          if printf '%s' "$pr" | grep -Eq '^[0-9]+$'; then
+            rev=$(printf '%05d' "$pr")
+          else
+            rev="$(date -u +%Y).$(date -u +%m%d).$(date -u +%H%M)"
+            echo "::warning::未取得 PR 编号，退回时间戳修订号：$rev"
+          fi
+          rel="V${ver}.${rev}-LCDSubpixelRepro"
           echo "ver=$ver" >> "$GITHUB_OUTPUT"
-          echo "stamp=$(date -u +%Y%m%d%H%M)" >> "$GITHUB_OUTPUT"
+          echo "rev=$rev" >> "$GITHUB_OUTPUT"
           echo "release=$rel" >> "$GITHUB_OUTPUT"
           echo "版本=$ver"
+          echo "修订号=$rev"
           echo "发布名=$rel"
       - name: PublishRelease
         uses: softprops/action-gh-release@v2
@@ -189,7 +232,9 @@ jobs:
 
             ## 怎么在本地验证（真实机器，有 GPU / ClearType）
 
-            资产名格式：`lcd-subpixel-repro-jdk<JDK主版本>-openjfx<OpenJFX版本>-<UTC时间戳>.zip`
+            资产名格式：`lcd-subpixel-repro-V<版本>.<修订号>-jdk<JDK主版本>-openjfx<OpenJFX版本>.zip`
+            （修订号 = 触发本次构建的 PR 编号，5 位左补 0，例如 PR #1 → `00001`；
+              手动触发未给 PR 编号时退回时间戳 `yyyy.MMdd.HHmm`。）
             （例：`lcd-subpixel-repro-jdk23-openjfx23.0.2-202610111350.zip`）。
 
             1. 下载对应你 GraalVM 版本的 `lcd-subpixel-repro-*.zip` 并解压；
