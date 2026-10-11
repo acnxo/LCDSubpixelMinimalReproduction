@@ -40,7 +40,7 @@ jobs:
           - { jdk: '25', javafx: '27' }
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: SetupGraalvm
         uses: graalvm/setup-graalvm@v1
         with:
@@ -166,7 +166,7 @@ jobs:
       # 缺了 checkout 时，工作区没有 pom，maven 会退化成 "Maven Stub Project (No POM) 1"，
       # 于是版本号变成 1（曾实际发生：发布名成了 V1.2026.1011.0722-LCDSubpixelRepro）。
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: DownloadArtifacts
         uses: actions/download-artifact@v4
         with:
