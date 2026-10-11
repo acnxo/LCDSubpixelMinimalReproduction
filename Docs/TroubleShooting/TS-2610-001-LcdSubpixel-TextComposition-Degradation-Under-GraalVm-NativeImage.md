@@ -24,7 +24,7 @@
 
 * 原生镜像产物在 Windows 上的文本观感显著劣化，且**无任何异常抛出**（静默退化）；
 * 影响范围为 LCD 次像素文本路径；灰度路径不受影响（见 4.3 节对照数据）；
-* 在 C 级结论取得前，可用的**临时缓解措施见第 9 节**（可完全避开该缺陷，但有观感代价）。
+* 在 C 级结论取得前，可用的**临时缓解措施见第 9 节**。
 
 ## 3. 结论分层（证据等级）
 
@@ -171,45 +171,13 @@
 3. 将隔离样例与本文数据提交上游（GraalVM 侧与 OpenJFX 侧各一份），由具备编译期可观测性的
    一方做最终判定。
 
-## 9. 处置与规避（临时缓解措施）
+## 9. 处置与规避
 
-在取得 C 级结论之前，原生镜像产物**只能规避、无法修复**：让原生构建的文本渲染走灰度路径
-（绕开 LCD 次像素合成）是目前唯一可用的手段。
-
-### 9.1 规避为何有效（机制，已按 JavaFX 25.0.4 源码与字节码逐项核对）
-
-| 环节 | 位置与行为 |
-| --- | --- |
-| 读取点 | `com.sun.javafx.font.PrismFontFactory` 的**静态初始化块**读取一次属性：`String lcdProp = System.getProperty("prism.lcdtext", defLCDProp); lcdEnabled = lcdProp.equals("true");` |
-| 查询点 | `PrismFontFactory#isLCDTextSupported()` 直接返回该静态字段 |
-| **生效点** | `com.sun.javafx.font.PrismFontStrike` 构造器：`this.aaMode = lcdEnabled ? aaMode : FontResource.AA_GREYSCALE;` |
-| 同类行为 | `com.sun.javafx.font.CompositeStrike#getAAMode()` 在不支持时同样返回 `FontResource.AA_GREYSCALE` |
-
-⇒ 关闭 LCD 后，**LCD strike 根本不会被创建**，第 7 节所列的 LCD 合成链路
-（`TEXTURE_SECOND_LCD` → `Solid_TextureSecondPassLCD`）不会被进入，缺陷**不可能被触发**。
-
-实测依据：灰度路径在两构建下**逐项一致**（见 4.3 节「灰度路径对照」一行，A 级）。
-
-### 9.2 缓解手段
+让原生构建的文本渲染走灰度路径（绕开 LCD 次像素合成）：
 
 | 手段 | 设置方式 | 关键要求 |
 | --- | --- | --- |
 | 关闭 LCD 次像素合成、改走灰度路径 | 启动参数 `-Dprism.lcdtext=false`；或在代码最早期 `System.setProperty("prism.lcdtext", "false")` | **必须早于 `PrismFontFactory` 类加载**（该值只在静态初始化时读取一次），最迟应早于 `Platform.startup` |
-
-### 9.3 代价与限制
-
-| 项 | 说明 |
-| --- | --- |
-| 观感代价 | 失去次像素（ClearType）带来的横向分辨率，文字不再有色边；仍保留灰度抗锯齿 |
-| 相对故障态 | 属于**改善**而非单纯降级：故障态中间调为 `0`（完全二值，见 4.3 节），灰度路径仍保留中间调（`885`） |
-| 作用范围 | 只影响文本渲染路径；不修复根因，也不影响非文本图形 |
-| 不构成缓解 | 更换 GraalVM 或 JavaFX 版本（第 5 节阶段 8：8/8 全部复现） |
-| 不构成缓解 | 回退软件管线（`-Dprism.order=sw`）：既不提供 LCD 次像素渲染，又降低性能 |
-
-### 9.4 何时可以撤销缓解
-
-* **判据**：用**不带任何缓解参数**的原生镜像运行第 10 节的判据，输出由 `collapsed=true` 变为 `collapsed=false`；
-* **复检时机**：每次升级 GraalVM 或 JavaFX 后按第 10 节复测一次；在此之前维持缓解。
 
 ## 10. 复现方法
 
