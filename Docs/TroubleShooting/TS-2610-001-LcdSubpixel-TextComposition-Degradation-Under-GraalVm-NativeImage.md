@@ -190,13 +190,11 @@
 
 实测依据：灰度路径在两构建下**逐项一致**（见 4.3 节「灰度路径对照」一行，A 级）。
 
-### 9.2 可选手段（按优先级）
+### 9.2 缓解手段
 
-| 优先级 | 手段 | 适用场景 | 关键要求 |
-| --- | --- | --- | --- |
-| 1 | 把 `prism.lcdtext` 设为 `false`：启动参数 `-Dprism.lcdtext=false`，或在代码最早期 `System.setProperty("prism.lcdtext", "false")` | 能控制启动参数，或能在代码最早处设置 | **必须早于 `PrismFontFactory` 类加载**（该值只在静态初始化时读取一次），最迟应早于 `Platform.startup` |
-| 2 | 对文本节点改用灰度平滑（`FontSmoothingType.GRAY`） | 无法控制启动参数的情形（例如已分发的 exe） | 仅作用于被设置的节点；**其与手段 1 的等价性本次未逐字节验证，标注为待验证** |
-| 3 | 对外暂时只发布 `JVM Jar` 产物，原生镜像标记为实验性 | 交付与发布层面 | 原生镜像仍需保留，用于第 10 节的复现验证 |
+| 手段 | 设置方式 | 关键要求 |
+| --- | --- | --- |
+| 关闭 LCD 次像素合成、改走灰度路径 | 启动参数 `-Dprism.lcdtext=false`；或在代码最早期 `System.setProperty("prism.lcdtext", "false")` | **必须早于 `PrismFontFactory` 类加载**（该值只在静态初始化时读取一次），最迟应早于 `Platform.startup` |
 
 ### 9.3 代价与限制
 
