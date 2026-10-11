@@ -122,10 +122,11 @@ lcd-repro.jar           JVM 版（自包含 fat jar）
 RunNativeImage.cmd      双击运行原生镜像
 RunJVMJar.cmd           双击运行 JVM 版
 RESULT.txt              构建机上的原始判据数字
-
-在支持构建报告（`--emit build-report`）的 GraalVM 版本上，包内另含 `build-report/` 目录；
-不支持该开关的版本（如 JDK 17 一档）不产出该目录 —— 判据与复现不受影响。
 ```
+
+各档实测（本次核对）：JDK 23、JDK 25、JDK 25 × JavaFX 27 三档的包内含
+`build-report/lcd-repro-build-report.html`；JDK 17 一档（及其所属的一组旧版本）
+所用 GraalVM 不提供该开关，包内不含该目录 —— 不影响判据与复现。
 
 CI 构建机没有 GPU，D3D 走 WARP（软件实现，仍为真实 D3D 后端）。因此 CI 的数字足以判断
 **问题是否复现**，但观感与像素级结论仍应以真实机器为准。
