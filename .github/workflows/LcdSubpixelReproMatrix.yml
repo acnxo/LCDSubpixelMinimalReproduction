@@ -133,7 +133,7 @@ jobs:
           New-Item -ItemType Directory -Force -Path "$d/lib" | Out-Null
           Copy-Item target/lcd-repro.exe "$d/"
           Copy-Item target/lcd-repro-fat.jar "$d/lcd-repro.jar"
-          Copy-Item Dist/RunJvmJar.cmd "$d/"
+          Copy-Item Dist/RunJVMJar.cmd "$d/"
           Copy-Item Dist/RunNativeImage.cmd "$d/"
           @(
             "GraalVM for JDK ${{ matrix.jdk }} / JavaFX ${{ matrix.javafx }}",
@@ -141,7 +141,7 @@ jobs:
             "  JVM         : " + (Get-Content target/hotspot.txt | Select-Object -First 1),
             "  native-image: " + (Get-Content target/native.txt  | Select-Object -First 1),
             "",
-            "本地验证：分别双击 .\lcd-repro.exe 与 .\RunJvmJar.cmd（同一个程序），把两个窗口并排看，",
+            "本地验证：分别双击 .\lcd-repro.exe 与 .\RunJVMJar.cmd（同一个程序），把两个窗口并排看，",
             "比较两者的 per-channel ink —— 若一处三通道相同、另一处不相同，即复现。"
           ) | Out-File -FilePath "$d/RESULT.txt" -Encoding utf8
           New-Item -ItemType Directory -Force -Path dist | Out-Null
@@ -238,9 +238,9 @@ jobs:
             （例：`lcd-subpixel-repro-jdk23-openjfx23.0.2-202610111350.zip`）。
 
             1. 下载对应你 GraalVM 版本的 `lcd-subpixel-repro-*.zip` 并解压；
-               （包内两个双击入口：`RunNativeImage.cmd` = 原生镜像，`RunJvmJar.cmd` = JVM 版）
+               （包内两个双击入口：`RunNativeImage.cmd` = 原生镜像，`RunJVMJar.cmd` = JVM 版）
             2. 双击 `RunNativeImage.cmd`（原生镜像）—— 记下 `per-channel ink` 那一行；
-            3. 双击 `RunJvmJar.cmd`（同一个程序的 JVM 版）—— 再记一行；
+            3. 双击 `RunJVMJar.cmd`（同一个程序的 JVM 版）—— 再记一行；
             4. **判据**：黑字白底正确合成必然 `out_c = 1 − m_c`，三通道墨量不可能相等；
                一处三通道相同（`collapsed=true`）、另一处不相同，即复现。
             5. `RESULT.txt` 里是**构建机（无 GPU，D3D 走 WARP）**上的原始数字，可作对照。

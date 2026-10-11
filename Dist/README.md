@@ -17,7 +17,7 @@
 lcd-repro.exe          原生镜像（GraalVM native-image）
 lcd-repro.jar          JVM 版（fat jar，JavaFX 已打进包里）
 RunNativeImage.cmd     双击：跑原生镜像（开窗口 + 打印判据数字）
-RunJvmJar.cmd          双击：跑 JVM 版（开窗口 + 打印判据数字）
+RunJVMJar.cmd          双击：跑 JVM 版（开窗口 + 打印判据数字）
 RESULT.txt             构建机上的原始判据数字
 ```
 
