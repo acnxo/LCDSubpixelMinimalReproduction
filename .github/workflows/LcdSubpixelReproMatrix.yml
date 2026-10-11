@@ -3,8 +3,13 @@ name: LcdSubpixelReproMatrix
 # 目的：① 用最小复现自证问题；② 二分「从哪个 GraalVM 版本开始」；
 #       ③ 把每格的编译产物发到发布页，供在真实机器（有 GPU / ClearType）上本地验证。
 on:
-  push:
-    branches: ['repro/**']
+  # PR 合并后触发。
+  # 注意：pull_request 的 closed 事件在「只关闭、没合并」时也会触发，
+  # 所以下面两个作业都带 merged 判断，避免白跑一轮（尤其 8 格原生镜像构建）。
+  pull_request:
+    types: [closed]
+    branches: [dev, main]
+  # 保留手动触发：首次出包、或需要重跑某一版时用（支持任意分支）
   workflow_dispatch:
 
 permissions:
@@ -12,6 +17,7 @@ permissions:
 
 jobs:
   repro:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
     name: ReproMatrix
     runs-on: windows-latest
     strategy:
@@ -120,7 +126,8 @@ jobs:
   publish:
     name: PublishReproAssets
     needs: repro
-    if: always()
+    # 矩阵失败也尽量把已产出的包发出去；但「只关闭未合并」的 PR 不跑
+    if: always() && (github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true)
     runs-on: ubuntu-latest
     steps:
       # 必需：下面的 ComposeStamp 要读 pom.xml 取版本号。
