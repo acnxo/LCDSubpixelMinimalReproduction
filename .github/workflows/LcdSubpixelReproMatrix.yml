@@ -217,7 +217,7 @@ jobs:
           echo "修订号=$rev"
           echo "发布名=$rel"
       - name: PublishRelease
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ steps.stamp.outputs.release }}
           name: ${{ steps.stamp.outputs.release }}
