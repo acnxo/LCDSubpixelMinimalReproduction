@@ -5,7 +5,7 @@
 
 仓库只包含复现所需的源码、配置与文档，不含任何应用代码。
 
-![native-image 与 JVM Jar 的窗口对比](https://github.com/user-attachments/assets/2a353f17-4f01-4c7d-aceb-e6157e78b47c)
+![native-image 与 `JVM Jar` 的窗口对比](Docs/Asset/ui-native-vs-jvm-jar.png)
 
 ## 1. 问题描述
 
