@@ -1,15 +1,18 @@
 # Dependabot 配置：每月检查并升级 Maven 依赖
 #
-# 覆盖范围：
-#   Maven 依赖 —— pom.xml。本项目的版本集中在 <properties> 的 javafx.version，
-#                 三个依赖 org.openjfx:javafx-{base,graphics,controls} 共用它，
-#                 所以一次升级即覆盖全部 JavaFX 依赖。
+# 覆盖范围（两类）：
+#   1. Maven 依赖 —— pom.xml。本项目的版本集中在 <properties> 的 javafx.version，
+#                    三个依赖 org.openjfx:javafx-{base,graphics,controls} 共用它，
+#                    所以一次升级即覆盖全部 JavaFX 依赖。
+#   2. GitHub Actions 组件 —— .github/workflows/*.yml 中 uses: 引用的 action 版本
+#                    （例如 actions/checkout、actions/download-artifact、
+#                      softprops/action-gh-release 等）。
 #
 # 合入路径：Dependabot 的 PR 直接指向 dev（配置里的 target-branch）。
 #
 #   dependabot/maven/xxx ──PR──▶ dev
 #
-# 检测频率：每月一次（每月同一天 09:00 / Asia/Shanghai）。
+# 检测频率：两类生态都是每月一次（每月同一天 09:00 / Asia/Shanghai）。
 # 手动更新：Dependabot 页面（Insights → Dependency graph → Dependabot）右侧有
 #           「Check for updates」按钮，可随时要求它立刻重新检查一次；
 #           GitHub 也提供对应的 API 触发入口（合并本 PR 后可在需用时实测确认）。
@@ -44,6 +47,29 @@ updates:
           - "org.openjfx:*"
       # 其余依赖：minor + patch 合并为一个 PR 减少噪音；major 单独提 PR 便于先读上游变更说明。
       maven-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+
+  # ── GitHub Actions 组件（.github/workflows/）──
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: dev
+    schedule:
+      interval: monthly
+      time: "09:00"
+      timezone: Asia/Shanghai
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: ci
+    labels:
+      - dependencies
+    groups:
+      # action 的 minor + patch 合并为一个 PR 减少噪音；major 单独提，
+      # 便于先读上游说明（action 的 major 常带破坏性行为变更）。
+      actions-minor-patch:
         patterns:
           - "*"
         update-types:
