@@ -1,11 +1,11 @@
 # JavaFX LCD 次像素文本合成退化 —— 最小复现（GraalVM native-image）
 
-本仓库是下述渲染问题的**最小可复现工程**：同一份 JavaFX 代码在 HotSpot 上 LCD 次像素文本合成正常，
+本仓库是下述渲染问题的**最小可复现工程**：同一份 JavaFX 代码以 JVM Jar 方式运行时 LCD 次像素文本合成正常，
 经 GraalVM `native-image` 编译后，三个颜色通道的覆盖被压缩为同一个标量，并呈二值化。
 
 仓库只包含复现所需的源码、配置与文档，不含任何应用代码。
 
-![native-image 与 HotSpot 的窗口对比](https://github.com/user-attachments/assets/2a353f17-4f01-4c7d-aceb-e6157e78b47c)
+![native-image 与 JVM Jar 的窗口对比](https://github.com/user-attachments/assets/2a353f17-4f01-4c7d-aceb-e6157e78b47c)
 
 ## 1. 问题描述
 
@@ -16,12 +16,12 @@
 
 | 运行方式 | `per-channel ink` | 结论 |
 | --- | --- | --- |
-| HotSpot（`java -jar`） | `73135 / 73618 / 73245`，`collapsed=false` | 三通道互不相等，合成正确 |
+| JVM Jar（`java -jar`） | `73135 / 73618 / 73245`，`collapsed=false` | 三通道互不相等，合成正确 |
 | `native-image` | `105825 / 105825 / 105825`，`collapsed=true` | 三通道完全相同，问题复现 |
 
 两点补充：
 
-* HotSpot 侧的数值受运行环境影响，不同机器间约有 ±0.06% 的差异；
+* JVM Jar 侧的数值受运行环境影响，不同机器间约有 ±0.06% 的差异；
 * `native-image` 侧的输出在不同环境下**逐位相同** —— 二值化抹平了差异。
 
 ### 1.2 行为模型
@@ -67,7 +67,7 @@ Dist\RunJVMJar.cmd         :: JVM 版（lcd-repro.jar）
 mvn -B -ntp package -Dmaven.compiler.release=25 -Djavafx.version=25.0.4
 mvn -B -ntp dependency:copy-dependencies -DoutputDirectory=target/lib
 
-:: JVM 侧（应打印 collapsed=false / OK）
+:: JVM Jar 侧（应打印 collapsed=false / OK）
 java -cp "target/classes;target/lib/*" LcdSubpixelRepro
 
 :: 原生镜像侧（应打印 collapsed=true，即复现）
@@ -84,7 +84,7 @@ CI 中另外把 `classes` 与依赖合并为自包含的 `lcd-repro.jar`（见�
 
 | 运行方式 | 预期输出 |
 | --- | --- |
-| HotSpot | `per-channel ink = <三值不等>   collapsed=false` → `OK` |
+| JVM Jar | `per-channel ink = <三值不等>   collapsed=false` → `OK` |
 | `native-image` | `per-channel ink = <三值相同>   collapsed=true` → `*** BUG ***` |
 
 * 默认**带界面**：两个入口脚本各开一个窗口，便于并排目视对比，同时判据数字打印到控制台；
