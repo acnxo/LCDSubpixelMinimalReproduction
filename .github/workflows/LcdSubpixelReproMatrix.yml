@@ -93,7 +93,13 @@ jobs:
       - name: BuildNativeImage
         shell: pwsh
         run: |
-          native-image -cp target/lcd-repro-fat.jar -o target/lcd-repro LcdSubpixelRepro
+          native-image --emit build-report -cp target/lcd-repro-fat.jar -o target/lcd-repro LcdSubpixelRepro
+          $reports = @(Get-ChildItem -Path .,target -Filter 'build-report*' -ErrorAction SilentlyContinue)
+          if ($reports.Count -gt 0) {
+            $reports | ForEach-Object { Write-Host "构建报告：$($_.Name)  $($_.Length) 字节" }
+          } else {
+            Write-Host '::warning::未找到构建报告（build-report），本格将不包含报告'
+          }
       - name: RunNativeImage
         shell: pwsh
         run: |
@@ -130,7 +136,17 @@ jobs:
           $tag = "jdk${{ matrix.jdk }}-openjfx${{ matrix.javafx }}"
           $stamp = (Get-Date).ToUniversalTime().ToString('yyyyMMddHHmm')
           $d = "dist/$tag-$stamp"
-          New-Item -ItemType Directory -Force -Path "$d/lib" | Out-Null
+          # native-image 构建报告：每格一份，随包发布，便于比对内联、常量折叠与对象布局
+          $rep = @(Get-ChildItem -Path .,target -Filter 'build-report*' -ErrorAction SilentlyContinue)
+          if ($rep.Count -gt 0) {
+            New-Item -ItemType Directory -Force -Path "$d/build-report" | Out-Null
+            $rep | ForEach-Object { Copy-Item $_.FullName "$d/build-report/" }
+            $repNote = "build-report/（$($rep.Count) 个文件）"
+            Write-Host "构建报告已入包：$($rep.Count) 个文件"
+          } else {
+            $repNote = '（本格未产出）'
+            Write-Host '::warning::本格未产出构建报告'
+          }
           Copy-Item target/lcd-repro.exe "$d/"
           Copy-Item target/lcd-repro-fat.jar "$d/lcd-repro.jar"
           Copy-Item Dist/RunJVMJar.cmd "$d/"
@@ -139,7 +155,7 @@ jobs:
             "GraalVM for JDK ${{ matrix.jdk }} / JavaFX ${{ matrix.javafx }}",
             "构建机上的结果（真实机器上可能与这里不同）：",
             "  JVM         : " + (Get-Content target/hotspot.txt | Select-Object -First 1),
-            "  native-image: " + (Get-Content target/native.txt  | Select-Object -First 1),
+            "  build-report: " + $repNote,
             "",
             "本地验证：分别双击 .\lcd-repro.exe 与 .\RunJVMJar.cmd（同一个程序），把两个窗口并排看，",
             "比较两者的 per-channel ink —— 若一处三通道相同、另一处不相同，即复现。"
@@ -238,7 +254,7 @@ jobs:
             （例：`lcd-subpixel-repro-jdk23-openjfx23.0.2-202610111350.zip`）。
 
             1. 下载对应你 GraalVM 版本的 `lcd-subpixel-repro-*.zip` 并解压；
-               （包内两个双击入口：`RunNativeImage.cmd` = 原生镜像，`RunJVMJar.cmd` = JVM 版）
+               （包内另含 `build-report/`：本格的 native-image 构建报告，可用于比对内联、常量折叠与对象布局）
             2. 双击 `RunNativeImage.cmd`（原生镜像）—— 记下 `per-channel ink` 那一行；
             3. 双击 `RunJVMJar.cmd`（同一个程序的 JVM 版）—— 再记一行；
             4. **判据**：黑字白底正确合成必然 `out_c = 1 − m_c`，三通道墨量不可能相等；

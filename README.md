@@ -122,6 +122,7 @@ lcd-repro.jar           JVM 版（自包含 fat jar）
 RunNativeImage.cmd      双击运行原生镜像
 RunJVMJar.cmd           双击运行 JVM 版
 RESULT.txt              构建机上的原始判据数字
+build-report/           native-image 构建报告（本格构建，供比对内联 / 常量折叠 / 对象布局）
 ```
 
 CI 构建机没有 GPU，D3D 走 WARP（软件实现，仍为真实 D3D 后端）。因此 CI 的数字足以判断
