@@ -93,12 +93,18 @@ jobs:
       - name: BuildNativeImage
         shell: pwsh
         run: |
-          native-image --emit build-report -cp target/lcd-repro-fat.jar -o target/lcd-repro LcdSubpixelRepro
-          $reports = @(Get-ChildItem -Path .,target -Filter 'build-report*' -ErrorAction SilentlyContinue)
+          # 构建报告开关按能力探测：并非所有 GraalVM 版本都提供（实测 GraalVM CE 25.0.2 无 --emit 选项；
+          # CI 上较新的版本支持）。不支持时跳过，不影响构建与后续打包。
+          $niArgs = @()
+          $expert = (native-image --expert-options 2>&1 | Out-String)
+          if ($expert -match "emit") { $niArgs = @("--emit", "build-report") }
+          else { Write-Host "::warning::本格 GraalVM 不支持 --emit build-report，跳过构建报告" }
+          native-image @niArgs -cp target/lcd-repro-fat.jar -o target/lcd-repro LcdSubpixelRepro
+          $reports = @(Get-ChildItem -Path .,target -Recurse -File -ErrorAction SilentlyContinue | Where-Object { $_.Name -like "*build-report*" })
           if ($reports.Count -gt 0) {
-            $reports | ForEach-Object { Write-Host "构建报告：$($_.Name)  $($_.Length) 字节" }
+            $reports | ForEach-Object { Write-Host "构建报告：$($_.FullName)  $($_.Length) 字节" }
           } else {
-            Write-Host '::warning::未找到构建报告（build-report），本格将不包含报告'
+            Write-Host "::warning::未找到构建报告（build-report），本格将不包含报告"
           }
       - name: RunNativeImage
         shell: pwsh
@@ -137,7 +143,9 @@ jobs:
           $stamp = (Get-Date).ToUniversalTime().ToString('yyyyMMddHHmm')
           $d = "dist/$tag-$stamp"
           # native-image 构建报告：每格一份，随包发布，便于比对内联、常量折叠与对象布局
-          $rep = @(Get-ChildItem -Path .,target -Filter 'build-report*' -ErrorAction SilentlyContinue)
+          # 先建好本格产物目录（此前该行被误删，导致 Copy-Item 目标目录不存在）
+          New-Item -ItemType Directory -Force -Path $d | Out-Null
+          $rep = @(Get-ChildItem -Path .,target -Recurse -File -ErrorAction SilentlyContinue | Where-Object { $_.Name -like "*build-report*" })
           if ($rep.Count -gt 0) {
             New-Item -ItemType Directory -Force -Path "$d/build-report" | Out-Null
             $rep | ForEach-Object { Copy-Item $_.FullName "$d/build-report/" }
@@ -189,7 +197,11 @@ jobs:
           path: assets
           merge-multiple: true
       - name: ListAssets
-        run: ls -l assets
+        run: |
+          ls -l assets || true
+          if [ -z "$(ls -A assets 2>/dev/null)" ]; then
+            echo "::warning::没有可发布的产物（矩阵未产出 zip），跳过发布"
+          fi
       # 发布页 tag / 标题用 UTC 时间戳（yyyyMMddHHmm），与本仓库既有 tag 惯例一致；
       # 同一分钟内重复运行会更新同一个发布页（可接受：资产名也带同一时间戳）。
       # 发布名格式：V<Maven 版本>.<修订号>-LCDSubpixelRepro（修订号 = PR 编号，5 位左补 0）
@@ -233,6 +245,7 @@ jobs:
           echo "修订号=$rev"
           echo "发布名=$rel"
       - name: PublishRelease
+        if: hashFiles('assets/*.zip') != ''
         uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ steps.stamp.outputs.release }}
