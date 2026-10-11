@@ -19,7 +19,11 @@ lcd-repro.jar          JVM 版（fat jar，JavaFX 已打进包里）
 RunNativeImage.cmd     双击：跑原生镜像（开窗口 + 打印判据数字）
 RunJVMJar.cmd          双击：跑 JVM 版（开窗口 + 打印判据数字）
 RESULT.txt             构建机上的原始判据数字
+build-report/lcd-repro-build-report.html   native-image 构建报告（JDK 23 及以上各档）
 ```
+
+> 注：JDK 17 一档（及其所属的一组旧版本）所用 GraalVM 不提供 `--emit build-report`，包内不含该文件。
+
 
 ## 说明
 

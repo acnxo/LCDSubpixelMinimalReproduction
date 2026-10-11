@@ -267,7 +267,7 @@ jobs:
             （例：`lcd-subpixel-repro-jdk23-openjfx23.0.2-202610111350.zip`）。
 
             1. 下载对应你 GraalVM 版本的 `lcd-subpixel-repro-*.zip` 并解压；
-               （在支持构建报告的 GraalVM 版本上，包内另含 `build-report/`：本格的 native-image 构建报告，可用于比对内联、常量折叠与对象布局）
+               （在支持构建报告的 GraalVM 版本（JDK 23 及以上）上，包内另含 `build-report/lcd-repro-build-report.html`：本格的 native-image 构建报告，可用于比对内联、常量折叠与对象布局）
             2. 双击 `RunNativeImage.cmd`（原生镜像）—— 记下 `per-channel ink` 那一行；
             3. 双击 `RunJVMJar.cmd`（同一个程序的 JVM 版）—— 再记一行；
             4. **判据**：黑字白底正确合成必然 `out_c = 1 − m_c`，三通道墨量不可能相等；
