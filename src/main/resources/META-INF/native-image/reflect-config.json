@@ -1,0 +1,2786 @@
+[
+  {
+    "name": "com.sun.glass.ui.Application",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.glass.ui.Clipboard",
+    "methods": [
+      {
+        "name": "contentChanged",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.sun.glass.ui.Cursor",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.glass.ui.HeaderButtonOverlay",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.glass.ui.Menu",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.glass.ui.MenuItem$Callback",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.glass.ui.Pixels",
+    "methods": [
+      {
+        "name": "attachData",
+        "parameterTypes": [
+          "long"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "com.sun.glass.ui.Screen",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.glass.ui.Size",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.glass.ui.View",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.glass.ui.Window",
+    "methods": [
+      {
+        "name": "isEnabled",
+        "parameterTypes": []
+      },
+      {
+        "name": "notifyClose",
+        "parameterTypes": []
+      },
+      {
+        "name": "notifyDelegatePtr",
+        "parameterTypes": [
+          "long"
+        ]
+      },
+      {
+        "name": "notifyDestroy",
+        "parameterTypes": []
+      },
+      {
+        "name": "notifyFocus",
+        "parameterTypes": [
+          "int"
+        ]
+      },
+      {
+        "name": "notifyFocusDisabled",
+        "parameterTypes": []
+      },
+      {
+        "name": "notifyFocusUngrab",
+        "parameterTypes": []
+      },
+      {
+        "name": "notifyLevelChanged",
+        "parameterTypes": [
+          "int"
+        ]
+      },
+      {
+        "name": "notifyMove",
+        "parameterTypes": [
+          "int",
+          "int"
+        ]
+      },
+      {
+        "name": "notifyMoveToAnotherScreen",
+        "parameterTypes": [
+          "com.sun.glass.ui.Screen"
+        ]
+      },
+      {
+        "name": "notifyResize",
+        "parameterTypes": [
+          "int",
+          "int",
+          "int"
+        ]
+      }
+    ],
+    "fields": [
+      {
+        "name": "ptr"
+      }
+    ]
+  },
+  {
+    "name": "com.sun.glass.ui.win.WinApplication",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.glass.ui.win.WinPlatformFactory",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "com.sun.glass.utils.NativeLibLoader",
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "com.sun.javafx.PreviewFeature"
+  },
+  {
+    "name": "com.sun.javafx.font.FontConfigManager$FcCompFont",
+    "fields": [
+      {
+        "name": "allFonts"
+      },
+      {
+        "name": "fcName"
+      },
+      {
+        "name": "firstFont"
+      }
+    ]
+  },
+  {
+    "name": "com.sun.javafx.font.FontConfigManager$FontConfigFont",
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ],
+    "fields": [
+      {
+        "name": "familyName"
+      },
+      {
+        "name": "fontFile"
+      },
+      {
+        "name": "fullName"
+      },
+      {
+        "name": "styleStr"
+      }
+    ]
+  },
+  {
+    "name": "com.sun.javafx.font.FontResource",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.FontStrike",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.Glyph",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.PrismFontFactory",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.coretext.CGAffineTransform",
+    "allDeclaredConstructors": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.coretext.CGPoint",
+    "allDeclaredConstructors": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.coretext.CGRect",
+    "allDeclaredConstructors": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.coretext.CGSize",
+    "allDeclaredConstructors": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.coretext.CTFactory",
+    "methods": [
+      {
+        "name": "getFactory",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.sun.javafx.font.directwrite.D2D1_COLOR_F",
+    "allDeclaredConstructors": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.directwrite.D2D1_MATRIX_3X2_F",
+    "allDeclaredConstructors": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.directwrite.D2D1_PIXEL_FORMAT",
+    "allDeclaredConstructors": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.directwrite.D2D1_POINT_2F",
+    "allDeclaredConstructors": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.directwrite.D2D1_RENDER_TARGET_PROPERTIES",
+    "allDeclaredConstructors": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.directwrite.DWFactory",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "com.sun.javafx.font.directwrite.DWFontFile",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "com.sun.javafx.font.directwrite.DWFontStrike",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.directwrite.DWGlyph",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.directwrite.DWRITE_GLYPH_METRICS",
+    "allDeclaredConstructors": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.directwrite.DWRITE_GLYPH_RUN",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.directwrite.DWRITE_MATRIX",
+    "allDeclaredConstructors": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.directwrite.DWRITE_SCRIPT_ANALYSIS",
+    "allDeclaredConstructors": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.directwrite.IDWriteGlyphRunAnalysis",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.directwrite.RECT",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.freetype.FTFactory",
+    "methods": [
+      {
+        "name": "getFactory",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.sun.javafx.font.freetype.FT_Bitmap",
+    "allDeclaredConstructors": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.freetype.FT_GlyphSlotRec",
+    "allDeclaredConstructors": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.freetype.FT_Glyph_Metrics",
+    "allDeclaredConstructors": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.freetype.FT_Matrix",
+    "allDeclaredConstructors": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.font.freetype.PangoGlyphString",
+    "allDeclaredConstructors": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.geom.Rectangle",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.geom.Shape",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.geom.transform.BaseTransform",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.iio.common.ImageLoaderImpl",
+    "methods": [
+      {
+        "name": "emitWarning",
+        "parameterTypes": [
+          "java.lang.String"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "com.sun.javafx.iio.java2d.J2DImageLoaderFactory",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "com.sun.javafx.iio.jpeg.JPEGImageLoader",
+    "methods": [
+      {
+        "name": "setInputAttributes",
+        "parameterTypes": [
+          "int",
+          "int",
+          "int",
+          "int",
+          "int",
+          "byte[]"
+        ]
+      },
+      {
+        "name": "setOutputAttributes",
+        "parameterTypes": [
+          "int",
+          "int"
+        ]
+      },
+      {
+        "name": "updateImageProgress",
+        "parameterTypes": [
+          "int"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "com.sun.javafx.logging.PrintLogger",
+    "methods": [
+      {
+        "name": "createInstance",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.sun.javafx.logging.jfr.JFRPulseLogger",
+    "methods": [
+      {
+        "name": "createInstance",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.sun.javafx.property.adapter.JavaBeanQuickAccessor",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "com.sun.javafx.reflect.Trampoline",
+    "methods": [
+      {
+        "name": "invoke",
+        "parameterTypes": [
+          "java.lang.reflect.Method",
+          "java.lang.Object",
+          "java.lang.Object[]"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "com.sun.javafx.scene.control.skin.Utils",
+    "methods": [
+      {
+        "name": "getResource",
+        "parameterTypes": [
+          "java.lang.String"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "com.sun.javafx.stage.EmbeddedWindow",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.javafx.tk.quantum.QuantumToolkit",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "com.sun.prism.GraphicsPipeline",
+    "methods": [
+      {
+        "name": "getFontFactory",
+        "parameterTypes": []
+      },
+      {
+        "name": "getPipeline",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.sun.prism.Image",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.Material",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.Mesh",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.MeshView",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.d3d.D3DPipeline",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.impl.PrismSettings",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.j2d.J2DPipeline",
+    "methods": [
+      {
+        "name": "getInstance",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.sun.prism.j2d.PrismPrintPipeline",
+    "methods": [
+      {
+        "name": "getInstance",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaOne_Color_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaOne_Color_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaOne_ImagePattern_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaOne_ImagePattern_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaOne_LinearGradient_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaOne_LinearGradient_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaOne_RadialGradient_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaOne_RadialGradient_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaTextureDifference_Color_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaTextureDifference_Color_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaTextureDifference_ImagePattern_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaTextureDifference_ImagePattern_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaTextureDifference_LinearGradient_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaTextureDifference_LinearGradient_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaTextureDifference_RadialGradient_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaTextureDifference_RadialGradient_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaTexture_Color_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaTexture_Color_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaTexture_ImagePattern_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaTexture_ImagePattern_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaTexture_LinearGradient_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaTexture_LinearGradient_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaTexture_RadialGradient_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.AlphaTexture_RadialGradient_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawCircle_Color_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawCircle_Color_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawCircle_ImagePattern_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawCircle_ImagePattern_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawCircle_LinearGradient_PAD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawCircle_LinearGradient_PAD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawCircle_LinearGradient_REFLECT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawCircle_LinearGradient_REFLECT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawCircle_LinearGradient_REPEAT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawCircle_LinearGradient_REPEAT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawCircle_RadialGradient_PAD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawCircle_RadialGradient_PAD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawCircle_RadialGradient_REFLECT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawCircle_RadialGradient_REFLECT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawCircle_RadialGradient_REPEAT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawCircle_RadialGradient_REPEAT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawEllipse_Color_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawEllipse_Color_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawEllipse_ImagePattern_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawEllipse_ImagePattern_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawEllipse_LinearGradient_PAD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawEllipse_LinearGradient_PAD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawEllipse_LinearGradient_REFLECT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawEllipse_LinearGradient_REFLECT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawEllipse_LinearGradient_REPEAT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawEllipse_LinearGradient_REPEAT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawEllipse_RadialGradient_PAD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawEllipse_RadialGradient_PAD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawEllipse_RadialGradient_REFLECT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawEllipse_RadialGradient_REFLECT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawEllipse_RadialGradient_REPEAT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawEllipse_RadialGradient_REPEAT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawPgram_Color_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawPgram_Color_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawPgram_ImagePattern_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawPgram_ImagePattern_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawPgram_LinearGradient_PAD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawPgram_LinearGradient_PAD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawPgram_LinearGradient_REFLECT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawPgram_LinearGradient_REFLECT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawPgram_LinearGradient_REPEAT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawPgram_LinearGradient_REPEAT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawPgram_RadialGradient_PAD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawPgram_RadialGradient_PAD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawPgram_RadialGradient_REFLECT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawPgram_RadialGradient_REFLECT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawPgram_RadialGradient_REPEAT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawPgram_RadialGradient_REPEAT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawRoundRect_Color_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawRoundRect_Color_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawRoundRect_ImagePattern_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawRoundRect_ImagePattern_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawRoundRect_LinearGradient_PAD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawRoundRect_LinearGradient_PAD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawRoundRect_LinearGradient_REFLECT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawRoundRect_LinearGradient_REFLECT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawRoundRect_LinearGradient_REPEAT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawRoundRect_LinearGradient_REPEAT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawRoundRect_RadialGradient_PAD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawRoundRect_RadialGradient_PAD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawRoundRect_RadialGradient_REFLECT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawRoundRect_RadialGradient_REFLECT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawRoundRect_RadialGradient_REPEAT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawRoundRect_RadialGradient_REPEAT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawSemiRoundRect_Color_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawSemiRoundRect_Color_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawSemiRoundRect_ImagePattern_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawSemiRoundRect_ImagePattern_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawSemiRoundRect_LinearGradient_PAD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawSemiRoundRect_LinearGradient_PAD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawSemiRoundRect_LinearGradient_REFLECT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawSemiRoundRect_LinearGradient_REFLECT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawSemiRoundRect_LinearGradient_REPEAT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawSemiRoundRect_LinearGradient_REPEAT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawSemiRoundRect_RadialGradient_PAD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawSemiRoundRect_RadialGradient_PAD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawSemiRoundRect_RadialGradient_REFLECT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawSemiRoundRect_RadialGradient_REFLECT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawSemiRoundRect_RadialGradient_REPEAT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.DrawSemiRoundRect_RadialGradient_REPEAT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillCircle_Color_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillCircle_Color_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillCircle_ImagePattern_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillCircle_ImagePattern_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillCircle_LinearGradient_PAD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillCircle_LinearGradient_PAD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillCircle_LinearGradient_REFLECT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillCircle_LinearGradient_REFLECT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillCircle_LinearGradient_REPEAT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillCircle_LinearGradient_REPEAT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillCircle_RadialGradient_PAD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillCircle_RadialGradient_PAD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillCircle_RadialGradient_REFLECT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillCircle_RadialGradient_REFLECT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillCircle_RadialGradient_REPEAT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillCircle_RadialGradient_REPEAT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillEllipse_Color_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillEllipse_Color_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillEllipse_ImagePattern_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillEllipse_ImagePattern_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillEllipse_LinearGradient_PAD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillEllipse_LinearGradient_PAD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillEllipse_LinearGradient_REFLECT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillEllipse_LinearGradient_REFLECT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillEllipse_LinearGradient_REPEAT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillEllipse_LinearGradient_REPEAT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillEllipse_RadialGradient_PAD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillEllipse_RadialGradient_PAD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillEllipse_RadialGradient_REFLECT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillEllipse_RadialGradient_REFLECT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillEllipse_RadialGradient_REPEAT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillEllipse_RadialGradient_REPEAT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillPgram_Color_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillPgram_Color_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillPgram_ImagePattern_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillPgram_ImagePattern_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillPgram_LinearGradient_PAD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillPgram_LinearGradient_PAD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillPgram_LinearGradient_REFLECT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillPgram_LinearGradient_REFLECT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillPgram_LinearGradient_REPEAT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillPgram_LinearGradient_REPEAT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillPgram_RadialGradient_PAD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillPgram_RadialGradient_PAD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillPgram_RadialGradient_REFLECT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillPgram_RadialGradient_REFLECT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillPgram_RadialGradient_REPEAT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillPgram_RadialGradient_REPEAT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillRoundRect_Color_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillRoundRect_Color_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillRoundRect_ImagePattern_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillRoundRect_ImagePattern_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillRoundRect_LinearGradient_PAD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillRoundRect_LinearGradient_PAD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillRoundRect_LinearGradient_REFLECT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillRoundRect_LinearGradient_REFLECT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillRoundRect_LinearGradient_REPEAT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillRoundRect_LinearGradient_REPEAT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillRoundRect_RadialGradient_PAD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillRoundRect_RadialGradient_PAD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillRoundRect_RadialGradient_REFLECT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillRoundRect_RadialGradient_REFLECT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillRoundRect_RadialGradient_REPEAT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.FillRoundRect_RadialGradient_REPEAT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Mask_TextureRGB_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Mask_TextureRGB_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Mask_TextureSuper_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Mask_TextureSuper_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_Color_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_Color_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_ImagePattern_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_ImagePattern_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_LinearGradient_PAD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_LinearGradient_PAD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_LinearGradient_REFLECT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_LinearGradient_REFLECT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_LinearGradient_REPEAT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_LinearGradient_REPEAT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_RadialGradient_PAD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_RadialGradient_PAD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_RadialGradient_REFLECT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_RadialGradient_REFLECT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_RadialGradient_REPEAT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_RadialGradient_REPEAT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_TextureFirstPassLCD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_TextureFirstPassLCD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_TextureRGB_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_TextureRGB_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_TextureSecondPassLCD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_TextureSecondPassLCD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_TextureYV12_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Solid_TextureYV12_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Texture_Color_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Texture_Color_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Texture_ImagePattern_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Texture_ImagePattern_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Texture_LinearGradient_PAD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Texture_LinearGradient_PAD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Texture_LinearGradient_REFLECT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Texture_LinearGradient_REFLECT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Texture_LinearGradient_REPEAT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Texture_LinearGradient_REPEAT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Texture_RadialGradient_PAD_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Texture_RadialGradient_PAD_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Texture_RadialGradient_REFLECT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Texture_RadialGradient_REFLECT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Texture_RadialGradient_REPEAT_AlphaTest_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.shader.Texture_RadialGradient_REPEAT_Loader",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.prism.sw.SWPipeline",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.EffectPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.hw.d3d.D3DShaderSource",
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.PrCropPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.PrFloodPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.PrMergePeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.PrReflectionPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.PrRenderer",
+    "methods": [
+      {
+        "name": "createRenderer",
+        "parameterTypes": [
+          "com.sun.scenario.effect.FilterContext"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSBlend_ADDPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSBlend_BLUEPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSBlend_COLOR_BURNPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSBlend_COLOR_DODGEPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSBlend_DARKENPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSBlend_DIFFERENCEPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSBlend_EXCLUSIONPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSBlend_GREENPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSBlend_HARD_LIGHTPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSBlend_LIGHTENPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSBlend_MULTIPLYPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSBlend_OVERLAYPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSBlend_REDPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSBlend_SCREENPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSBlend_SOFT_LIGHTPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSBlend_SRC_ATOPPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSBlend_SRC_INPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSBlend_SRC_OUTPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSBlend_SRC_OVERPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSBrightpassPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSColorAdjustPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSDisplacementMapPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSEffectPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSInvertMaskPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSLinearConvolvePeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSLinearConvolveShadowPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSOneSamplerPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSPerspectiveTransformPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSPhongLighting_DISTANTPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSPhongLighting_POINTPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSPhongLighting_SPOTPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSRenderer",
+    "methods": [
+      {
+        "name": "createRenderer",
+        "parameterTypes": [
+          "com.sun.scenario.effect.FilterContext"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSSepiaTonePeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSTwoSamplerPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPSZeroSamplerPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.ps.PPStoPSWDisplacementMapPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.prism.sw.PSWRenderer",
+    "methods": [
+      {
+        "name": "createRenderer",
+        "parameterTypes": [
+          "com.sun.scenario.effect.FilterContext"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.RendererDelegate",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWBlend_ADDPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWBlend_BLUEPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWBlend_COLOR_BURNPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWBlend_COLOR_DODGEPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWBlend_DARKENPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWBlend_DIFFERENCEPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWBlend_EXCLUSIONPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWBlend_GREENPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWBlend_HARD_LIGHTPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWBlend_LIGHTENPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWBlend_MULTIPLYPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWBlend_OVERLAYPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWBlend_REDPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWBlend_SCREENPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWBlend_SOFT_LIGHTPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_ATOPPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_INPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OVERPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWBoxBlurPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWBoxShadowPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWBrightpassPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWColorAdjustPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWDisplacementMapPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWEffectPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWInvertMaskPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWLinearConvolvePeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWLinearConvolveShadowPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWPerspectiveTransformPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWPhongLighting_DISTANTPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWPhongLighting_POINTPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWPhongLighting_SPOTPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWRendererDelegate",
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.java.JSWSepiaTonePeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEBlend_ADDPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEBlend_BLUEPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEBlend_COLOR_BURNPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEBlend_COLOR_DODGEPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEBlend_DARKENPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEBlend_DIFFERENCEPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEBlend_EXCLUSIONPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEBlend_GREENPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEBlend_HARD_LIGHTPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEBlend_LIGHTENPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEBlend_MULTIPLYPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEBlend_OVERLAYPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEBlend_REDPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEBlend_SCREENPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEBlend_SOFT_LIGHTPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_ATOPPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_INPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OVERPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEBoxBlurPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEBoxShadowPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEBrightpassPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEColorAdjustPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEDisplacementMapPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEEffectPeer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEInvertMaskPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSELinearConvolvePeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSELinearConvolveShadowPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEPerspectiveTransformPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEPhongLighting_DISTANTPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEPhongLighting_POINTPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSEPhongLighting_SPOTPeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSERendererDelegate",
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.sun.scenario.effect.impl.sw.sse.SSESepiaTonePeer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.sun.scenario.effect.light.PointLight",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.scenario.effect.light.SpotLight",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.animation.Interpolator"
+  },
+  {
+    "name": "javafx.animation.KeyValue",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.css.CssParser",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.css.Rule"
+  },
+  {
+    "name": "javafx.css.StyleableBooleanProperty",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.css.StyleableDoubleProperty",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.css.StyleableFloatProperty",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.css.StyleableIntegerProperty",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.css.StyleableLongProperty",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.css.StyleableObjectProperty",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.css.StyleableProperty",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.css.StyleableStringProperty",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.print.Printer",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.AmbientLight",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.Camera"
+  },
+  {
+    "name": "javafx.scene.DirectionalLight",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.Group"
+  },
+  {
+    "name": "javafx.scene.LightBase",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.Node"
+  },
+  {
+    "name": "javafx.scene.ParallelCamera"
+  },
+  {
+    "name": "javafx.scene.Parent"
+  },
+  {
+    "name": "javafx.scene.PerspectiveCamera",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.PointLight",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.Scene"
+  },
+  {
+    "name": "javafx.scene.SpotLight",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.SubScene",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.canvas.Canvas",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.control.Control"
+  },
+  {
+    "name": "javafx.scene.control.Labeled"
+  },
+  {
+    "name": "javafx.scene.control.TableColumnBase",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.effect.Effect"
+  },
+  {
+    "name": "javafx.scene.image.Image"
+  },
+  {
+    "name": "javafx.scene.image.ImageView"
+  },
+  {
+    "name": "javafx.scene.input.Clipboard",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.input.Dragboard",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.input.TouchPoint",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.layout.Pane"
+  },
+  {
+    "name": "javafx.scene.layout.Region"
+  },
+  {
+    "name": "javafx.scene.paint.Color",
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "javafx.scene.paint.Material",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.shape.Arc",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.shape.ArcTo",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.shape.Box",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.shape.Circle",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.shape.ClosePath",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.shape.CubicCurve",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.shape.CubicCurveTo",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.shape.Cylinder",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.shape.Ellipse",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.shape.HLineTo",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.shape.Line"
+  },
+  {
+    "name": "javafx.scene.shape.LineTo"
+  },
+  {
+    "name": "javafx.scene.shape.Mesh",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.shape.MeshView",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.shape.MoveTo"
+  },
+  {
+    "name": "javafx.scene.shape.Path"
+  },
+  {
+    "name": "javafx.scene.shape.PathElement"
+  },
+  {
+    "name": "javafx.scene.shape.Polygon",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.shape.Polyline",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.shape.QuadCurve",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.shape.QuadCurveTo",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.shape.Rectangle"
+  },
+  {
+    "name": "javafx.scene.shape.SVGPath"
+  },
+  {
+    "name": "javafx.scene.shape.Shape"
+  },
+  {
+    "name": "javafx.scene.shape.Shape3D",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.shape.Sphere",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.shape.TriangleMesh",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.shape.VLineTo",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.text.Font"
+  },
+  {
+    "name": "javafx.scene.text.Text"
+  },
+  {
+    "name": "javafx.scene.text.TextFlow",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "javafx.scene.transform.Transform"
+  },
+  {
+    "name": "javafx.stage.PopupWindow"
+  },
+  {
+    "name": "javafx.stage.Stage"
+  },
+  {
+    "name": "javafx.stage.Window"
+  },
+  {
+    "name": "com.sun.glass.ui.win.WinGestureSupport",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  },
+  {
+    "name": "com.sun.glass.ui.win.WinDnDClipboard",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  }
+]
