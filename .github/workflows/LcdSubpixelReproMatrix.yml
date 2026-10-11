@@ -1,0 +1,275 @@
+name: LcdSubpixelReproMatrix
+
+# 目的：① 用最小复现自证问题；② 二分「从哪个 GraalVM 版本开始」；
+#       ③ 把每格的编译产物发到发布页，供在真实机器（有 GPU / ClearType）上本地验证。
+on:
+  # PR 合并后触发。
+  # 注意：pull_request 的 closed 事件在「只关闭、没合并」时也会触发，
+  # 所以下面两个作业都带 merged 判断，避免白跑一轮（尤其 8 格原生镜像构建）。
+  pull_request:
+    types: [closed]
+    branches: [dev, main]
+  # 保留手动触发：首次出包、或需要重跑某一版时用（支持任意分支）
+  # pr 输入：手动触发时用于命名的 PR 编号；留空则退回时间戳。
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: '用于命名的 PR 编号（留空 = 用时间戳）'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  repro:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
+    name: ReproMatrix
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { jdk: '17', javafx: '17.0.20' }
+          - { jdk: '20', javafx: '20.0.2' }
+          - { jdk: '21', javafx: '21.0.12' }
+          - { jdk: '22', javafx: '22.0.2' }
+          - { jdk: '23', javafx: '23.0.2' }
+          - { jdk: '24', javafx: '24.0.2' }
+          - { jdk: '25', javafx: '25.0.4' }
+          - { jdk: '25', javafx: '27' }
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: SetupGraalvm
+        uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: ${{ matrix.jdk }}
+          distribution: graalvm
+      - name: PrintVersions
+        shell: pwsh
+        run: |
+          java -version
+          native-image --version
+      # 注意：此处用 bash 而非 pwsh —— PowerShell 传 -D 参数会打散（曾导致整批格拿到默认版本 jar）
+      - name: MavenBuild
+        shell: bash
+        run: |
+          mvn -B -ntp -q package -Dmaven.compiler.release=${{ matrix.jdk }} -Djavafx.version=${{ matrix.javafx }}
+          mvn -B -ntp -q dependency:copy-dependencies -DoutputDirectory=target/lib
+      # 把 JavaFX jar 钉死到本格的版本：先清掉一切 javafx-*，再从 Maven Central 直接取三件套。
+      # 为什么不用 Maven 解析的产物：实测在旧版本格上会混入默认版本（25.0.4）的 jar，
+      # 导致 JVM 侧 UnsupportedClassVersionError；直接取包是确定性的（第一版 harness 就是这么做的，21~25 全部正常）。
+      - name: PinJavaFxJars
+        shell: bash
+        run: |
+          rm -f target/lib/javafx-*.jar
+          for a in javafx-base javafx-graphics javafx-controls; do
+            curl -sSL -o "target/lib/$a-${{ matrix.javafx }}-win.jar" \
+              "https://repo1.maven.org/maven2/org/openjfx/$a/${{ matrix.javafx }}/$a-${{ matrix.javafx }}-win.jar"
+          done
+          echo "classpath 里的 jar："
+          ls -1 target/lib | sed 's/^/  /'
+      # 合成 fat jar：app classes + 已钉版本的 JavaFX jar。
+      # 必须排除 module-info.class（每个 JavaFX 平台 jar 都带一个，合并后会冲突/被当模块）
+      # 以及 MANIFEST 与签名文件；再写入 Main-Class，使 `java -jar` 直接可跑。
+      - name: BuildFatJar
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf fat && mkdir -p fat
+          cp -r target/classes/. fat/
+          for j in target/lib/*.jar; do
+            unzip -qo "$j" -d fat -x 'META-INF/MANIFEST.MF' 'META-INF/*.SF' 'META-INF/*.RSA' 'META-INF/*.DSA' 'module-info.class' || true
+          done
+          printf 'Manifest-Version: 1.0\nMain-Class: LcdSubpixelRepro\n\n' > fat/META-INF/MANIFEST.MF
+          jar --create --file target/lcd-repro-fat.jar --manifest fat/META-INF/MANIFEST.MF -C fat .
+          rm -rf fat
+          ls -l target/lcd-repro-fat.jar
+      - name: RunOnJvm
+        shell: pwsh
+        run: |
+          java -jar target/lcd-repro-fat.jar --headless | Tee-Object -FilePath target/hotspot.txt
+      - name: BuildNativeImage
+        shell: pwsh
+        run: |
+          # 构建报告开关按能力探测：并非所有 GraalVM 版本都提供（实测 GraalVM CE 25.0.2 无 --emit 选项；
+          # CI 上较新的版本支持）。不支持时跳过，不影响构建与后续打包。
+          $niArgs = @()
+          $expert = (native-image --expert-options 2>&1 | Out-String)
+          if ($expert -match "emit") { $niArgs = @("--emit", "build-report") }
+          else { Write-Host "::warning::本格 GraalVM 不支持 --emit build-report，跳过构建报告" }
+          native-image @niArgs -cp target/lcd-repro-fat.jar -o target/lcd-repro LcdSubpixelRepro
+          $reports = @(Get-ChildItem -Path .,target -Recurse -File -ErrorAction SilentlyContinue | Where-Object { $_.Name -like "*build-report*" })
+          if ($reports.Count -gt 0) {
+            $reports | ForEach-Object { Write-Host "构建报告：$($_.FullName)  $($_.Length) 字节" }
+          } else {
+            Write-Host "::warning::未找到构建报告（build-report），本格将不包含报告"
+          }
+      - name: RunNativeImage
+        shell: pwsh
+        run: |
+          & ./target/lcd-repro.exe --headless | Tee-Object -FilePath target/native.txt
+      # 修订号（用于产物命名）：优先 PR 编号（5 位左补 0）；手动触发可传 inputs.pr；
+      # 都没有则退回时间戳 yyyy.MMdd.HHmm。
+      # 与 publish 作业里的同名逻辑一致 —— 作业之间不共享 step 输出，只能各算一次。
+      - name: ComposeRev
+        shell: bash
+        run: |
+          set -euo pipefail
+          ver=$(sed -n 's:.*<version>\(.*\)</version>.*:\1:p' pom.xml | head -1 | tr -d '[:space:]')
+          printf '%s' "$ver" | grep -Eq '^[0-9]+(\.[0-9]+)+([-+.][0-9A-Za-z.+_-]*)?$' \
+            || { echo "::error::版本号形状异常：[$ver]"; exit 1; }
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            pr='${{ github.event.pull_request.number }}'
+          else
+            pr='${{ inputs.pr }}'
+          fi
+          if printf '%s' "$pr" | grep -Eq '^[0-9]+$'; then
+            rev=$(printf '%05d' "$pr")
+          else
+            rev="$(date -u +%Y).$(date -u +%m%d).$(date -u +%H%M)"
+            echo "::warning::未取得 PR 编号，退回时间戳修订号：$rev"
+          fi
+          echo "VER=$ver" >> "$GITHUB_ENV"
+          echo "REV=$rev" >> "$GITHUB_ENV"
+          echo "版本=$ver"
+          echo "修订号=$rev"
+      - name: PackageForLocalVerify
+        shell: pwsh
+        run: |
+          # 命名自证：jdk 主版本 + OpenJFX 完整版本 + UTC 构建时间戳（沿用仓库既有惯例）
+          $tag = "jdk${{ matrix.jdk }}-openjfx${{ matrix.javafx }}"
+          $stamp = (Get-Date).ToUniversalTime().ToString('yyyyMMddHHmm')
+          $d = "dist/$tag-$stamp"
+          # native-image 构建报告：每格一份，随包发布，便于比对内联、常量折叠与对象布局
+          # 先建好本格产物目录（此前该行被误删，导致 Copy-Item 目标目录不存在）
+          New-Item -ItemType Directory -Force -Path $d | Out-Null
+          $rep = @(Get-ChildItem -Path .,target -Recurse -File -ErrorAction SilentlyContinue | Where-Object { $_.Name -like "*build-report*" })
+          if ($rep.Count -gt 0) {
+            New-Item -ItemType Directory -Force -Path "$d/build-report" | Out-Null
+            $rep | ForEach-Object { Copy-Item $_.FullName "$d/build-report/" }
+            $repNote = "build-report/（$($rep.Count) 个文件）"
+            Write-Host "构建报告已入包：$($rep.Count) 个文件"
+          } else {
+            $repNote = '（本格未产出）'
+            Write-Host '::warning::本格未产出构建报告'
+          }
+          Copy-Item target/lcd-repro.exe "$d/"
+          Copy-Item target/lcd-repro-fat.jar "$d/lcd-repro.jar"
+          Copy-Item Dist/RunJVMJar.cmd "$d/"
+          Copy-Item Dist/RunNativeImage.cmd "$d/"
+          @(
+            "GraalVM for JDK ${{ matrix.jdk }} / JavaFX ${{ matrix.javafx }}",
+            "构建机上的结果（真实机器上可能与这里不同）：",
+            "  JVM         : " + (Get-Content target/hotspot.txt | Select-Object -First 1),
+            "  build-report: " + $repNote,
+            "",
+            "本地验证：分别双击 .\lcd-repro.exe 与 .\RunJVMJar.cmd（同一个程序），把两个窗口并排看，",
+            "比较两者的 per-channel ink —— 若一处三通道相同、另一处不相同，即复现。"
+          ) | Out-File -FilePath "$d/RESULT.txt" -Encoding utf8
+          New-Item -ItemType Directory -Force -Path dist | Out-Null
+          $asset = "lcd-subpixel-repro-V$env:VER.$env:REV-$tag.zip"
+          Compress-Archive -Path "$d/*" -DestinationPath "dist/$asset" -Force
+          Write-Host "打包完成：dist/$asset"
+      - name: UploadArtifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: lcd-subpixel-repro-jdk${{ matrix.jdk }}-openjfx${{ matrix.javafx }}
+          path: dist/*.zip
+          if-no-files-found: error
+
+  publish:
+    name: PublishReproAssets
+    needs: repro
+    # 矩阵失败也尽量把已产出的包发出去；但「只关闭未合并」的 PR 不跑
+    if: always() && (github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true)
+    runs-on: ubuntu-latest
+    steps:
+      # 必需：下面的 ComposeStamp 要读 pom.xml 取版本号。
+      # 缺了 checkout 时，工作区没有 pom，maven 会退化成 "Maven Stub Project (No POM) 1"，
+      # 于是版本号变成 1（曾实际发生：发布名成了 V1.2026.1011.0722-LCDSubpixelRepro）。
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: DownloadArtifacts
+        uses: actions/download-artifact@v8
+        with:
+          path: assets
+          merge-multiple: true
+      - name: ListAssets
+        run: |
+          ls -l assets || true
+          if [ -z "$(ls -A assets 2>/dev/null)" ]; then
+            echo "::warning::没有可发布的产物（矩阵未产出 zip），跳过发布"
+          fi
+      # 发布页 tag / 标题用 UTC 时间戳（yyyyMMddHHmm），与本仓库既有 tag 惯例一致；
+      # 同一分钟内重复运行会更新同一个发布页（可接受：资产名也带同一时间戳）。
+      # 发布名格式：V<Maven 版本>.<修订号>-LCDSubpixelRepro（修订号 = PR 编号，5 位左补 0）
+      # 例：V1.0.0.2026.1011.0708-LCDSubpixelRepro
+      # 版本号取自 pom.xml 的 project.version（maven 求值，失败则回退解析 pom）。
+      # 资产名仍用紧凑时间戳（yyyyMMddHHmm），与发布名各自独立。
+      # 发布名格式：V<Maven 版本>.<修订号>-LCDSubpixelRepro（修订号 = PR 编号，5 位左补 0）
+      # 例：V1.0.0.2026.1011.0708-LCDSubpixelRepro
+      # 版本号：以 pom.xml 的 project.version 为准；再用 maven 求值交叉校验（不一致只告警）。
+      # 形状校验：必须是 x.y(.z...) 形态，拒绝 maven 的 Stub 占位值 "1"。
+      - name: ComposeStamp
+        id: stamp
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f pom.xml || { echo "::error::工作区缺少 pom.xml（publish 作业需要 actions/checkout）"; exit 1; }
+          pomver=$(sed -n 's:.*<version>\(.*\)</version>.*:\1:p' pom.xml | head -1 | tr -d '[:space:]')
+          mvnver=$(mvn -q -B help:evaluate -Dexpression=project.version -DforceStdout 2>/dev/null | tr -d '[:space:]' || true)
+          if [ "$mvnver" != "$pomver" ]; then
+            echo "::warning::maven 求值与 pom 解析不一致（mvn=${mvnver:-空} / pom=${pomver:-空}），以 pom 为准"
+          fi
+          ver="$pomver"
+          printf '%s' "$ver" | grep -Eq '^[0-9]+(\.[0-9]+)+([-+.][0-9A-Za-z.+_-]*)?$' \
+            || { echo "::error::版本号形状异常：[$ver]（refusing to publish a wrong name）"; exit 1; }
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            pr='${{ github.event.pull_request.number }}'
+          else
+            pr='${{ inputs.pr }}'
+          fi
+          if printf '%s' "$pr" | grep -Eq '^[0-9]+$'; then
+            rev=$(printf '%05d' "$pr")
+          else
+            rev="$(date -u +%Y).$(date -u +%m%d).$(date -u +%H%M)"
+            echo "::warning::未取得 PR 编号，退回时间戳修订号：$rev"
+          fi
+          rel="V${ver}.${rev}-LCDSubpixelRepro"
+          echo "ver=$ver" >> "$GITHUB_OUTPUT"
+          echo "rev=$rev" >> "$GITHUB_OUTPUT"
+          echo "release=$rel" >> "$GITHUB_OUTPUT"
+          echo "版本=$ver"
+          echo "修订号=$rev"
+          echo "发布名=$rel"
+      - name: PublishRelease
+        if: hashFiles('assets/*.zip') != ''
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ steps.stamp.outputs.release }}
+          name: ${{ steps.stamp.outputs.release }}
+          prerelease: true
+          fail_on_unmatched_files: true
+          files: assets/*.zip
+          body: |
+            ## 这是什么
+
+            「GraalVM native-image 下 JavaFX LCD 次像素文本合成退化」的**最小复现**编译产物，
+            按 GraalVM 版本各一份（每包内含原生镜像 exe + 同一程序的 JVM 版运行集）。
+
+            ## 怎么在本地验证（真实机器，有 GPU / ClearType）
+
+            资产名格式：`lcd-subpixel-repro-V<版本>.<修订号>-jdk<JDK主版本>-openjfx<OpenJFX版本>.zip`
+            （修订号 = 触发本次构建的 PR 编号，5 位左补 0，例如 PR #1 → `00001`；
+              手动触发未给 PR 编号时退回时间戳 `yyyy.MMdd.HHmm`。）
+            （例：`lcd-subpixel-repro-jdk23-openjfx23.0.2-202610111350.zip`）。
+
+            1. 下载对应你 GraalVM 版本的 `lcd-subpixel-repro-*.zip` 并解压；
+               （在支持构建报告的 GraalVM 版本（JDK 23 及以上）上，包内另含 `build-report/lcd-repro-build-report.html`：本格的 native-image 构建报告，可用于比对内联、常量折叠与对象布局）
+            2. 双击 `RunNativeImage.cmd`（原生镜像）—— 记下 `per-channel ink` 那一行；
+            3. 双击 `RunJVMJar.cmd`（同一个程序的 JVM 版）—— 再记一行；
+            4. **判据**：黑字白底正确合成必然 `out_c = 1 − m_c`，三通道墨量不可能相等；
+               一处三通道相同（`collapsed=true`）、另一处不相同，即复现。
+            5. `RESULT.txt` 里是**构建机（无 GPU，D3D 走 WARP）**上的原始数字，可作对照。
