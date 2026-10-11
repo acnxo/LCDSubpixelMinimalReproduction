@@ -129,15 +129,34 @@ CI 构建机没有 GPU，D3D 走 WARP（软件实现，仍为真实 D3D 后端�
 
 ## 6. 仓库结构
 
-| 路径 | 说明 |
-| --- | --- |
-| `pom.xml` | 最小 Maven 工程，仅依赖 JavaFX base / graphics / controls |
-| `src/main/java/LcdSubpixelRepro.java` | 复现程序（有效代码 44 行）：`Text` 设 `FontSmoothingType.LCD` → `snapshot` → 统计三通道覆盖量 |
-| `src/main/resources/META-INF/native-image/` | native-image 所需的反射 / JNI / 资源元数据与构建参数（供 JavaFX 使用，与本复现目标无关） |
-| `Dist/` | 构建包下载脚本（`Update.cmd` + `Update.ps1`）与两个双击入口脚本 |
-| `.github/workflows/LcdSubpixelReproMatrix.yml` | 版本矩阵构建与发布 |
-| `.github/dependabot.yml` | 依赖自动升级（Maven 与 GitHub Actions，每月一次） |
-| `LICENSE` | GNU GPL v3 |
+```text
+.
+├── .github
+│   ├── workflows
+│   │   └── LcdSubpixelReproMatrix.yml           8 格版本矩阵构建与发布（PR 合并触发）
+│   └── dependabot.yml                           依赖自动升级（Maven + GitHub Actions，每月一次，PR 提交到 `dev`）
+├── Dist
+│   ├── README.md                                `Dist` 目录的用法说明
+│   ├── RunJVMJar.cmd                            双击：运行**本目录**的 `lcd-repro.jar`（JVM 版）
+│   ├── RunNativeImage.cmd                       双击：运行**本目录**的 `lcd-repro.exe`（原生镜像）
+│   ├── Update.cmd                               双击：下载最新构建包到本目录（列出全部包 / 按关键字挑选 / `stable`）
+│   └── Update.ps1                               `Update.cmd` 的实际逻辑：查询发布 → 挑包 → 下载 → 解压
+├── src
+│   └── main
+│       ├── java
+│       │   └── LcdSubpixelRepro.java            复现程序（有效代码 44 行）：LCD 文本 → snapshot → 统计三通道覆盖量
+│       └── resources
+│           └── META-INF
+│               └── native-image
+│                   ├── jni-config.json          native-image JNI 元数据（供 JavaFX 使用）
+│                   ├── native-image.properties  native-image 构建参数（`--no-fallback` + JavaFX 运行期初始化）
+│                   ├── reflect-config.json      native-image 反射元数据（供 JavaFX 使用）
+│                   └── resource-config.json     native-image 资源元数据（供 JavaFX 使用）
+├── .gitignore                                   忽略构建产物与常见工程文件（Java 模板 + `target/`、`build/`）
+├── LICENSE                                      GNU GPL v3 完整授权文本
+├── pom.xml                                      最小 Maven 工程，仅依赖 JavaFX base / graphics / controls
+└── README.md                                    本文件
+```
 
 ## 7. 已排除的可能原因
 
