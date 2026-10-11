@@ -180,7 +180,7 @@
 1. 使用本仓库发布包：运行 `Dist/Update.cmd` 下载对应组合的包（JDK 23 及以上档的包内另含
    `build-report/lcd-repro-build-report.html`），随后分别双击 `Dist/RunNativeImage.cmd` 与
    `Dist/RunJVMJar.cmd`，比较两个窗口与控制台判据；
-2. 从源码构建：见本仓库 `README.md`「快速开始 / 从源码构建」；
+2. 从源码构建：见本仓库 `README.zh-CN.md`「快速开始 / 从源码构建」；
 3. 判据：固定样例（黑字白底、`Segoe UI` 14px）下，一侧输出 `collapsed=false`、
    另一侧输出 `collapsed=true`，即判定为复现。
 
