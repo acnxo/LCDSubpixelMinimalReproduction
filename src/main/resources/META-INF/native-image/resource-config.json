@@ -1,0 +1,37 @@
+{
+  "resources": {
+    "includes": [
+      {
+        "pattern": "javafx.properties"
+      },
+      {
+        "pattern": "javafx/.*"
+      },
+      {
+        "pattern": "com/sun/javafx/.*"
+      },
+      {
+        "pattern": "com/sun/glass/.*"
+      },
+      {
+        "pattern": "com/sun/prism/.*"
+      },
+      {
+        "pattern": "com/sun/scenario/.*"
+      },
+      {
+        "pattern": ".*\\.dll$"
+      },
+      {
+        "pattern": "com/sun/glass/utils/NativeLibLoader\\.class"
+      },
+      {
+        "pattern": "sun/text/resources/LineBreakIteratorData"
+      },
+      {
+        "pattern": ".*\\.icu$"
+      }
+    ],
+    "excludes": []
+  }
+}
