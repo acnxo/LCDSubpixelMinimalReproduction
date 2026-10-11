@@ -96,8 +96,8 @@ jobs:
           New-Item -ItemType Directory -Force -Path "$d/lib" | Out-Null
           Copy-Item target/lcd-repro.exe "$d/"
           Copy-Item target/lcd-repro-fat.jar "$d/lcd-repro.jar"
-          Copy-Item RunJvmJar.cmd "$d/"
-          Copy-Item RunNativeImage.cmd "$d/"
+          Copy-Item Dist/RunJvmJar.cmd "$d/"
+          Copy-Item Dist/RunNativeImage.cmd "$d/"
           @(
             "GraalVM for JDK ${{ matrix.jdk }} / JavaFX ${{ matrix.javafx }}",
             "构建机上的结果（真实机器上可能与这里不同）：",

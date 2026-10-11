@@ -23,7 +23,7 @@ HotSpot 上同一段代码是正确的。
 | `src/main/java/LcdSubpixelRepro.java` | 复现程序（有效代码 44 行）：`Text` 设 `FontSmoothingType.LCD` → snapshot → 统计三通道墨量 |
 | `src/main/resources/META-INF/native-image/*.json` | native-image 所需的反射 / JNI / 资源元数据（JavaFX 用，与本复现目标无关） |
 | `src/main/resources/META-INF/native-image/native-image.properties` | native-image 的构建参数（`--no-fallback` + JavaFX 运行期初始化） |
-| `RunJvmJar.cmd` / `RunNativeImage.cmd` | **双击即看窗口：`RunJvmJar.cmd`（JVM 侧）与 `RunNativeImage.cmd`（原生侧）各开一个窗口，并排比较 |
+| `Dist\RunJvmJar.cmd` / `Dist\RunNativeImage.cmd` | **双击即看窗口：`RunJvmJar.cmd`（JVM 侧）与 `RunNativeImage.cmd`（原生侧）各开一个窗口，并排比较 |
 | `.github/workflows/repro-matrix.yml` | 版本矩阵 + 打包发布 |
 
 ## 判据（只看一个数）
@@ -52,7 +52,7 @@ native-image -cp "target/classes;target/lib/*" -o target/lcd-repro LcdSubpixelRe
 
 **不要**加 `-Dprism.lcdtext=false` —— 那是绕开本问题的灰度路径。
 
-**默认就带界面**：双击 `RunNativeImage.cmd`（原生）与 `RunJvmJar.cmd`（JVM），把两个窗口并排放好即可肉眼对比；
+**默认就带界面**：双击 `Dist\RunNativeImage.cmd`（原生）与 `Dist\RunJvmJar.cmd`（JVM），把两个窗口并排放好即可肉眼对比；
 两边的判据数字也会同时打印在同一窗口的控制台里。
 
 只想要数字（脚本 / CI）：加 `--headless`，例如 `lcd-repro.exe --headless`。
@@ -67,7 +67,7 @@ CI 会对 `GraalVM for JDK ∈ {17,20,21,22,23,24,25} × 对应 JavaFX`（外加
 > （例：`lcd-subpixel-repro-jdk23-openjfx23.0.2-202610111350.zip`）。
 >
 > 每包内容（无 lib/ 目录，JVM 侧为自包含 fat jar）：`lcd-repro.exe`（原生镜像）、`lcd-repro.jar`（同一程序的 JVM 版，供对照）、
-> `RunJvmJar.cmd`、`RunNativeImage.cmd`、`RESULT.txt`
+> `Dist\RunJvmJar.cmd`、`Dist\RunNativeImage.cmd`、`RESULT.txt`（脚本随包发布，落在 `Dist` 目录）
 
 > 注意：GitHub Windows runner 无 GPU，D3D 走 WARP（软件实现，仍是真 D3D 后端）；
 > 因此 CI 的数字用于"是否复现"的判断，**观感/像素级结论仍以真实机器为准**。
