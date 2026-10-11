@@ -149,7 +149,7 @@ jobs:
           Compress-Archive -Path "$d/*" -DestinationPath "dist/$asset" -Force
           Write-Host "打包完成：dist/$asset"
       - name: UploadArtifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: lcd-subpixel-repro-jdk${{ matrix.jdk }}-openjfx${{ matrix.javafx }}
           path: dist/*.zip
