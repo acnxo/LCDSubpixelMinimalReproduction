@@ -29,7 +29,7 @@
 * 期望：`out_c = mix(bg_c, fg_c, m_c)`，即每个颜色通道各自使用自己的覆盖 `m_c`；
 * 实际：`out_c = mix(bg, fg, s)`，即三通道共用同一个标量 `s`，且 `s` 呈二值化。
 
-该模型由上述观测数据推得；推导过程与被排除项见第 7 节及来源 issue。
+该模型由上述观测数据推得；推导过程与被排除项见第 7 节。
 
 ## 2. 运行环境
 
@@ -122,8 +122,11 @@ lcd-repro.jar           JVM 版（自包含 fat jar）
 RunNativeImage.cmd      双击运行原生镜像
 RunJVMJar.cmd           双击运行 JVM 版
 RESULT.txt              构建机上的原始判据数字
-build-report/           native-image 构建报告（本格构建，供比对内联 / 常量折叠 / 对象布局）
 ```
+
+各档实测（本次核对）：JDK 23、JDK 25、JDK 25 × JavaFX 27 三档的包内含
+`build-report/lcd-repro-build-report.html`；JDK 17 一档（及其所属的一组旧版本）
+所用 GraalVM 不提供该开关，包内不含该目录 —— 不影响判据与复现。
 
 CI 构建机没有 GPU，D3D 走 WARP（软件实现，仍为真实 D3D 后端）。因此 CI 的数字足以判断
 **问题是否复现**，但观感与像素级结论仍应以真实机器为准。
@@ -161,7 +164,7 @@ CI 构建机没有 GPU，D3D 走 WARP（软件实现，仍为真实 D3D 后端�
 
 ## 7. 已排除的可能原因
 
-以下因素均已核实为**两构建相同**，故不构成本问题的成因（完整推导与逐条复核方式见来源 issue 的复盘）：
+以下因素均已核实为**两构建相同**，故不构成本问题的成因：
 
 * DirectWrite 字形掩码：两构建逐字节相同；
 * 纹理上传：同一 `prism_d3d.dll` 的原生调用；
@@ -179,7 +182,3 @@ Dependabot 每月检查一次，覆盖 Maven 依赖与工作流中的 GitHub Act
 ## 9. 许可
 
 本项目以 **GNU General Public License v3.0** 授权，完整文本见 [`LICENSE`](LICENSE)。
-
-## 10. 相关链接
-
-* 问题来源与完整复盘：<https://github.com/cnxnc/LegionFanControl/issues/20>
