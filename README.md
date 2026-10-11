@@ -24,7 +24,7 @@ HotSpot 上同一段代码是正确的。
 | `src/main/resources/META-INF/native-image/*.json` | native-image 所需的反射 / JNI / 资源元数据（JavaFX 用，与本复现目标无关） |
 | `src/main/resources/META-INF/native-image/native-image.properties` | native-image 的构建参数（`--no-fallback` + JavaFX 运行期初始化） |
 | `Dist\RunJvmJar.cmd` / `Dist\RunNativeImage.cmd` | **双击即看窗口：`RunJvmJar.cmd`（JVM 侧）与 `RunNativeImage.cmd`（原生侧）各开一个窗口，并排比较 |
-| `.github/workflows/repro-matrix.yml` | 版本矩阵 + 打包发布 |
+| `.github/workflows/LcdSubpixelReproMatrix.yml` | 版本矩阵 + 打包发布 |
 
 ## 判据（只看一个数）
 
