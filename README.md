@@ -66,6 +66,19 @@ Dist\RunJVMJar.cmd         :: JVM version (lcd-repro.jar)
 Both scripts only run the program **located in their own directory** (resolved via `%~dp0`), so they can
 never pick up a same-named program from `PATH`; if the program is missing they report it explicitly.
 
+The native image is built as a **console-subsystem** program, so Windows creates a console window for it.
+When it is started **by double-clicking** `lcd-repro.exe`, that window is **hidden automatically** (a very
+brief flash is possible) and only the GUI shows up. It stays visible — with the criterion numbers printed
+in it — whenever the program is started **from an existing console** (a `cmd` window, CI, or the
+`RunNativeImage.cmd` script above), so scripts keep capturing the numbers.
+
+To keep the console window for debugging, pass one of:
+
+| Switch | How to use it |
+| --- | --- |
+| `--console` | on the command line: `lcd-repro.exe --console` |
+| `-Dlcdrepro.console=true` | in a shortcut's target — the native launcher consumes `-D` options, so double-clicking works too |
+
 ### 3.2 Building from source
 
 ```bat
@@ -158,6 +171,7 @@ and pixel-level conclusions should still be drawn on a real machine.
 ├── src
 │   └── main
 │       ├── java
+│       │   ├── ConsoleWindow.java               console-window visibility for a double-clicked native image (FFM → Win32; see §3.1)
 │       │   └── LcdSubpixelRepro.java            the reproducer (44 lines of effective code): LCD text → snapshot → count per-channel coverage
 │       └── resources
 │           └── META-INF

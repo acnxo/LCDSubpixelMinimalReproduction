@@ -55,9 +55,19 @@ public class LcdSubpixelRepro {
     private static final String SAMPLE = "MW#8";
 
     public static void main(String[] args) {
+        // 先决定控制台窗口的可见性：双击启动时隐藏它，从已有控制台启动时保持可见
+        // Decide the console window visibility first: hidden for a double-click, kept when started
+        // from an existing console (see ConsoleWindow for the switches)
+        ConsoleWindow.applyStartupVisibility(args);
+
         // 默认带界面（给人看）；--headless 只出数字（给 CI 用）
         // Windowed by default (for humans); --headless prints the numbers only (for CI)
-        boolean headless = args.length > 0 && args[0].equalsIgnoreCase("--headless");
+        boolean headless = false;
+        for (String arg : args) {
+            if (arg.equalsIgnoreCase("--headless")) {
+                headless = true;
+            }
+        }
         boolean window = !headless;
 
         Platform.startup(() -> {

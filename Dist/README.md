@@ -32,3 +32,17 @@ build-report/lcd-repro-build-report.html   native-image 构建报告（JDK 23 �
 * 前提是那个仓库**已经有发布** —— 若还没有，先去 Actions 页面手动跑一次构建（`Run workflow`）；
 * 文件被占用（例如 `lcd-repro.exe` 还在运行）时会写入失败，先关掉再重试；
 * `Update.cmd` 必须保持 **CRLF 行尾 + UTF-8（无 BOM）** 编码，否则中文注释会让 cmd 解析错位。
+
+## 控制台窗口（原生镜像）
+
+`lcd-repro.exe` 是**控制台子系统**程序，双击时 Windows 会先开一个控制台窗口。现在的行为：
+
+| 启动方式 | 控制台窗口 |
+| --- | --- |
+| 双击 `lcd-repro.exe` | **自动隐藏**（只剩 GUI；可能有极短的一闪） |
+| 双击 `RunNativeImage.cmd` | **保持可见** —— 窗口由 cmd 与程序共享，判据数字打在这里 |
+| 从 cmd / CI 直接运行 | 同上，保持可见（脚本采集数字的方式不变） |
+| 要调试日志时 | 加 `--console` 或 `-Dlcdrepro.console=true`，窗口保持显示 |
+
+> 为什么不干脆改成窗口子系统？那样「从控制台运行时打印判据数字」这条通路就断了 —— 脚本与上游核对都依赖它。
+> 所以只隐藏**双击自带的那一个**窗口。

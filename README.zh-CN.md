@@ -63,6 +63,18 @@ Dist\RunJVMJar.cmd         :: JVM 版（lcd-repro.jar）
 两个脚本都只运行**自身所在目录**中的程序（用 `%~dp0` 定位），不会误用 `PATH` 中的同名程序；
 程序缺失时会给出明确提示。
 
+原生镜像构建出来的是**控制台子系统**程序，因此 Windows 会为它创建一个控制台窗口。
+当**双击** `lcd-repro.exe` 启动时，该窗口会被**自动隐藏**（可能有极短的一闪），你只会看到 GUI；
+而只要是从**已有控制台**（cmd 窗口、CI、或上面的 `RunNativeImage.cmd`）启动，窗口就保持可见、
+判据数字照旧打在那里 —— 脚本采集数字的方式不变。
+
+调试时想保留控制台窗口，用下面任一种方式：
+
+| 开关 | 怎么用 |
+| --- | --- |
+| `--console` | 命令行上：`lcd-repro.exe --console` |
+| `-Dlcdrepro.console=true` | 写进快捷方式的「目标」—— 原生启动器会吃掉 `-D` 参数，所以双击也能带 |
+
 ### 3.2 从源码构建
 
 ```bat
@@ -150,6 +162,7 @@ CI 构建机没有 GPU，D3D 走 WARP（软件实现，仍为真实 D3D 后端�
 ├── src
 │   └── main
 │       ├── java
+│       │   ├── ConsoleWindow.java               双击启动时控制控制台窗口是否显示（FFM 调 Win32，见 3.1）
 │       │   └── LcdSubpixelRepro.java            复现程序（有效代码 44 行）：LCD 文本 → snapshot → 统计三通道覆盖量
 │       └── resources
 │           └── META-INF
